@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "workspaces": [
+    "example",
+    "use-selected-items-hook"
+  ],
+  "scripts": {
+    "build": "yarn build:hook && yarn build:example",
+    "build:example": "yarn workspace example package",
+    "build:hook": "yarn workspace use-selected-items-hook build",
+    "bump": "yarn workspace use-selected-items-hook bump",
+    "develop": "yarn watch",
+    "watch": "concurrently -n Hook,Example \"yarn watch:hook\" \"yarn watch:example\"",
+    "watch:example": "yarn workspace example develop",
+    "watch:hook": "yarn workspace use-selected-items-hook watch",
+    "setup": "node ./scripts/setup.js"
+  },
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "concurrently": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "prompt": "^1.0.0"
+  }
+}
