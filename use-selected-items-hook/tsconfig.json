@@ -24,6 +24,10 @@
   },
   "exclude": [
     "node_modules",
-    "lib"
+    "lib",
+    "esm"
+  ],
+  "include": [
+    "src"
   ]
 }
