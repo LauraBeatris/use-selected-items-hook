@@ -3,3 +3,6 @@ yarn-error.log
 .next
 node_modules
 out
+
+lib
+esm
