@@ -11,7 +11,7 @@
     "package": "yarn build && yarn export",
     "refresh": "yarn install --force",
     "start": "next start",
-    "lint": "eslint --ext .ts,.tsx ./pages,./lib --fix"
+    "lint": "eslint --ext .ts,.tsx ./pages ./lib --fix"
   },
   "keywords": [],
   "author": "",

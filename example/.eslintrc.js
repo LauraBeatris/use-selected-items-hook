@@ -83,7 +83,8 @@ module.exports = {
         "allowExpressions": true
       }
     ],
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "react/react-in-jsx-scope": "off"
   },
   settings: {
     "import/resolver": {
