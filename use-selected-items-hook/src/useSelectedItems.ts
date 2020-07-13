@@ -43,7 +43,7 @@ function useSelectedItems<T>({
     } else {
       setSelectedItems(prev => (
         update(prev, {
-          $push: [item]
+          $push: [item],
         })
       ));
     }

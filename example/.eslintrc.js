@@ -6,6 +6,13 @@ module.exports = {
     "plugin:@typescript-eslint/recommended"
   ],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 2018,
+    sourceType: "module",
+  },
   plugins: ["react", "react-hooks", "@typescript-eslint"],
   rules: {
     "space-before-function-paren": 0,
@@ -76,8 +83,7 @@ module.exports = {
         "allowExpressions": true
       }
     ],
-    "@typescript-eslint/no-empty-interface": "off",
-    "react/react-in-jsx-scope": "off"
+    "@typescript-eslint/no-empty-interface": "off"
   },
   settings: {
     "import/resolver": {
