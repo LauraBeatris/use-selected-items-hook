@@ -17,9 +17,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/ui": "^0.3.1",
     "@types/next": "^9.0.0",
     "@types/react": "^16.9.41",
     "@zeit/next-typescript": "^1.1.1",
+    "classnames": "^2.2.6",
     "next": "^9.4.4",
     "postcss-preset-env": "^6.7.0",
     "react": "^16.13.1",
