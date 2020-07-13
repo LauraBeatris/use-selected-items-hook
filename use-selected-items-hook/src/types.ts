@@ -1,9 +1,17 @@
-import { SetStateAction } from "react";
+import { SetStateAction, Dispatch } from "react";
 
-export type InitialStateSetter<S> = () => S;
-export type InitialHookState<S> = S | InitialStateSetter<S>;
-
+export type Item<T> = T & {
+  selected: boolean
+};
 export interface Actions<T> {
   toggleItem: (T) => void,
-  setItems: React.Dispatch<SetStateAction<T[]>>
+  setSelectedItems: Dispatch<SetStateAction<T[]>>,
+  setItemsList: Dispatch<SetStateAction<Item<T>[]>>
 }
+
+export interface HookArguments<T> {
+  items: T[],
+  itemIdentifier: string,
+}
+
+export type HookReturnValues<T> = [T[], Item<T>[], Actions<T>];
