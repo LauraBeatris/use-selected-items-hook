@@ -57,20 +57,18 @@ function useSelectedItems<T>({
   }, [verifyIfIdentifierIsValid]);
 
   useEffect(() => {
-    if (selectedItems?.length) {
-      setItemsList(prev => (
-        prev.map(listItem => {
-          const isSelected = !!(selectedItems.find(selectedItem => (
-            selectedItem[itemIdentifier] === listItem[itemIdentifier]
-          )));
+    setItemsList(prev => (
+      prev.map(listItem => {
+        const isSelected = !!(selectedItems.find(selectedItem => (
+          selectedItem[itemIdentifier] === listItem[itemIdentifier]
+        )));
 
-          return {
-            ...listItem,
-            selected: isSelected,
-          };
-        })
-      ));
-    }
+        return {
+          ...listItem,
+          selected: isSelected,
+        };
+      })
+    ));
   }, [
     selectedItems,
     itemIdentifier,
