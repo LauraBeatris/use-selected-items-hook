@@ -11,7 +11,7 @@ export interface Actions<T> {
 
 export interface HookArguments<T> {
   items: T[],
-  itemIdentifier: string,
+  itemIdentifier: string | number,
 }
 
 export type HookReturnValues<T> = [T[], Item<T>[], Actions<T>];
