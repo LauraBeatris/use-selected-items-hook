@@ -2,7 +2,7 @@
    <img src="./docs/logo.png" width="150px"/>
 </p>
 
-# useSelectedItemsHook
+# useSelectedItems
 
 > Easily select items based on an array
 
