@@ -28,7 +28,7 @@
     "react-dom": "^16.13.1",
     "sass": "^1.26.9",
     "tailwindcss": "^1.4.6",
-    "use-selected-items-hook": "^1.0.1"
+    "use-selected-items-hook": "1.0.4"
   },
   "eslintConfig": {
     "extends": "react-app"
