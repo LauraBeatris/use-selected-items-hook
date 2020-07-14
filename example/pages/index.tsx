@@ -1,4 +1,4 @@
-import { useSelectedItems } from "use-selected-items-hook/lib/index";
+import useSelectedItems from "use-selected-items-hook";
 import classNames from "classnames";
 
 import { AspectRatio } from "../components/ui";
