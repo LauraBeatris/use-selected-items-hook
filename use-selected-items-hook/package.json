@@ -59,5 +59,8 @@
   },
   "bugs": {
     "url": "https://github.com/LauraBeatris/use-selected-items-hook/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@laurabeatris"
   }
 }
