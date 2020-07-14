@@ -1,6 +1,6 @@
 {
   "name": "use-selected-items-hook",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "A hook to easily select items based on a array",
   "author": {
     "name": "Laura Beatris",
@@ -12,11 +12,11 @@
     "hooks",
     "react-hooks"
   ],
-  "main": "index.js",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "files": ["build"],
   "scripts": {
-    "build:cjs": "tsc",
-    "build:es": "tsc -m esNext --outDir esm",
-    "build": "yarn build:cjs && yarn build:es",
+    "build": "rollup -c",
     "bump": "npm version",
     "example": "cd example && yarn install && yarn package",
     "prepublishOnly": "yarn build",
@@ -36,6 +36,8 @@
     "@babel/preset-typescript": "^7.10.4",
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.5.0",
     "babel-eslint": "^10.1.0",
@@ -51,6 +53,9 @@
     "lint-staged": "^10.2.11",
     "nodemon": "^2.0.2",
     "prettier": "^2.0.5",
+    "rollup": "^2.21.0",
+    "rollup-plugin-peer-deps-external": "^2.2.3",
+    "rollup-plugin-typescript2": "^0.27.1",
     "typescript": "^3.9.6"
   },
   "repository": {
