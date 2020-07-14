@@ -28,6 +28,6 @@
     "esm"
   ],
   "include": [
-    "src"
+    "./src/"
   ]
 }
