@@ -3,6 +3,7 @@ import { SetStateAction, Dispatch } from "react";
 export type Item<T> = T & {
   selected: boolean
 };
+
 export interface Actions<T> {
   toggleItem: (T) => void,
   setSelectedItems: Dispatch<SetStateAction<T[]>>,
