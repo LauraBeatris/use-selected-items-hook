@@ -1,4 +1,3 @@
-
 import { Modal } from "react-responsive-modal";
 
 import { Travel } from "../shared/types";
