@@ -8117,6 +8117,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typescript@^3.9.6:
+  version "3.9.6"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.6.tgz#8f3e0198a34c3ae17091b35571d3afd31999365a"
+  integrity sha512-Pspx3oKAPJtjNwE92YS05HQoY7z2SFyOpHo9MqJor3BXAGNaPUs83CuVp9VISFkSjyRfiTpmKuAYGJB7S7hOxw==
+
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz#2619800c4c825800efdd8343af7dd9933cbe2818"
@@ -8217,10 +8222,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-selected-items-hook@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/use-selected-items-hook/-/use-selected-items-hook-1.0.1.tgz#ae348e99398abdda67c4857bdab0b87e2451778b"
-  integrity sha512-d8Nx/EEa4yw8Lx9lpnWSMy8tnD0uk1qQcsWwwkD5cVsYcTYhhr4qqjKOUZyziQnSmnU/fJr03aAvnXvfWnkj2Q==
+use-selected-items-hook@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/use-selected-items-hook/-/use-selected-items-hook-1.0.6.tgz#7c6f8c37d9b1566e239e3679d209efdecd006c44"
+  integrity sha512-wan/KjDDQw44nvzaKKT+erKTOx+JsI2bFQ9K9ZlAQDtWEB9t9pIZ0PfCIJK6M4I1MDuDt9AfCgq9FO7jHLWsGQ==
   dependencies:
     immutability-helper "^3.1.1"
     react "^16.13.1"
