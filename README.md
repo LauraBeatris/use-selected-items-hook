@@ -138,7 +138,7 @@ Check out the [contributing](https://github.com/LauraBeatris/use-selected-items-
 
 # :closed_book: License
 
-Released in 2020 (Under development).
+Released in 2020
 This project is under the [MIT license](https://github.com/LauraBeatris/use-selected-items-hook/master/LICENSE).
 
 Made with love by [Laura Beatris](https://github.com/LauraBeatris) 💜🚀
