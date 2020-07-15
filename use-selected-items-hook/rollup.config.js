@@ -5,6 +5,11 @@ import typescript from "rollup-plugin-typescript2";
 
 import pkg from "./package.json";
 
+const external = [
+  ...Object.keys(pkg.dependencies || {}),
+  ...Object.keys(pkg.peerDependencies || {}),
+];
+
 export default {
   input: "src/index.ts",
   output: [
@@ -25,4 +30,5 @@ export default {
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
   ],
+  external,
 };
