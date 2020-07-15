@@ -2,6 +2,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 
+import "react-responsive-modal/styles.css";
 import "../styles/index.css";
 
 const App: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => (
