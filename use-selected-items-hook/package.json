@@ -1,6 +1,6 @@
 {
   "name": "use-selected-items-hook",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A hook to easily select items based on a array",
   "author": {
     "name": "Laura Beatris",
