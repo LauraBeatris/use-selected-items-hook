@@ -29,7 +29,7 @@
     "react-responsive-modal": "^5.0.2",
     "sass": "^1.26.9",
     "tailwindcss": "^1.4.6",
-    "use-selected-items-hook": "1.0.5"
+    "use-selected-items-hook": "^1.0.5"
   },
   "eslintConfig": {
     "extends": "react-app"
