@@ -1,10 +1,9 @@
 {
-  "name": "example",
+  "name": "use-selected-items-hook-example",
   "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Example of the useSelectedItems hook",
   "scripts": {
-    "build": "next build && next export",
+    "build": "next build",
     "dev": "next",
     "develop": "yarn dev",
     "export": "next export",
@@ -14,8 +13,8 @@
     "lint": "eslint --ext .ts,.tsx ./pages ./lib --fix"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Laura Beatris",
+  "license": "MIT",
   "dependencies": {
     "@tailwindcss/ui": "^0.3.1",
     "@types/next": "^9.0.0",
