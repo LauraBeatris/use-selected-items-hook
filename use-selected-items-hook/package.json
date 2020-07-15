@@ -1,6 +1,6 @@
 {
   "name": "use-selected-items-hook",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A hook to easily select items based on a array",
   "author": {
     "name": "Laura Beatris",
@@ -14,7 +14,9 @@
   ],
   "main": "build/index.js",
   "module": "build/index.es.js",
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "scripts": {
     "build": "rollup -c",
     "bump": "npm version",
@@ -65,8 +67,5 @@
   },
   "bugs": {
     "url": "https://github.com/LauraBeatris/use-selected-items-hook/issues"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@laurabeatris"
   }
 }
