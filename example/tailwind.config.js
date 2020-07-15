@@ -13,8 +13,5 @@ module.exports = {
     },
   },
   plugins: [tailwindUI],
-  purge: [
-    "./pages/**/*.(ts|tsx)",
-    "./components/**/*.(ts|tsx)",
-  ],
+  purge: ['./components/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}'],
 };
