@@ -13,18 +13,29 @@
 [![Contributors](https://img.shields.io/github/contributors/LauraBeatris/use-selected-items-hook?color=283366&style=flat-square)](https://github.com/LauraBeatris/use-selected-items-hook/graphs/contributors)
 
 ---
+<p align="center">
+   <img src="docs/example.gif" width="500"/>
+</p>
+
+<p align="center">
+   <a href="https://use-selected-items-hook-6vsdik4n4.vercel.app/">Check out the example</a>
+</p>
+
+---
 
 # :pushpin: Table of Contents
 
 * [Features](#rocket-features)
 * [Installation](#construction_worker-installation)
 * [Usage](#pushpin-goals)
+* [API](#computer-api)
 * [FAQ](#postbox-faq)
 * [Found a bug? Missing a specific feature?](#bug-issues)
 * [Contributing](#tada-contributing)
 * [License](#closed_book-license)
 
 # :construction_worker: Installation
+
 ### With Yarn
 
 ```
@@ -79,7 +90,7 @@ npm install use-selected-items-hook
 As showed in the example above, you're able to pass an array of items from any type of source, as long it has a unique identifier in
 order to compare the items.
 
-# API
+# :computer: API
 
 ## useSelectedItem
 ```
@@ -104,7 +115,7 @@ The two arrays returned are the following: ``selectedItems`` and ``listItems``.
 - ``selectedItems``: The items currently selected and that might be send for an API.
 - ``listItems``: The items with the boolean state of ``selected``, which you're able to map and show an visual feedback.
 
---
+---
 
 The actions allow you to manipulate items.
 
