@@ -17,11 +17,11 @@ function useSelectedItems<T>({
   ));
 
   const verifyIfIdentifierIsValid = useCallback(() => {
-    const itemIndex = !!(items.find(findItem => (
+    const identifierIsValid = !!(items.find(findItem => (
       findItem[itemIdentifier]
     )));
 
-    if (!itemIndex) {
+    if (!identifierIsValid) {
       throw new Error("Please, make sure to provide a valid identifier");
     }
   }, [
