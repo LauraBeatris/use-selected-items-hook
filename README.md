@@ -11,6 +11,7 @@
 [![Stars](https://img.shields.io/github/stars/LauraBeatris/use-selected-items-hook?color=283366&style=flat-square)](https://github.com/LauraBeatris/use-selected-items-hook/stargazers)
 [![Forks](https://img.shields.io/github/forks/LauraBeatris/use-selected-items-hook?color=%23283366&style=flat-square)](https://github.com/LauraBeatris/use-selected-items-hook/network/members)
 [![Contributors](https://img.shields.io/github/contributors/LauraBeatris/use-selected-items-hook?color=283366&style=flat-square)](https://github.com/LauraBeatris/use-selected-items-hook/graphs/contributors)
+[![NPM](https://img.shields.io/npm/v/use-selected-items-hook?color=283366&style=flat-square)](https://www.npmjs.com/package/use-selected-items-hook)
 
 ---
 <p align="center">
