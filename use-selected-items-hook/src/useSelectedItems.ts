@@ -1,30 +1,49 @@
 import { useState, useCallback, useEffect } from "react";
 import update from "immutability-helper";
 
-import { HookArguments, HookReturnValues } from "./types";
+import { HookArguments, HookReturnValues, Item } from "./types";
 
 function useSelectedItems<T>({
   items,
   itemIdentifier,
 }: HookArguments<T>): HookReturnValues<T> {
   const [selectedItems, setSelectedItems] = useState<T[]>([]);
+  const [itemsList, setItemsList] = useState<Item<T>[]>([]);
 
-  const [itemsList, setItemsList] = useState(() => (
-    items.map(item => ({
-      ...item,
-      selected: false,
-    }))
-  ));
-
-  const verifyIfIdentifierIsValid = useCallback(() => {
-    const identifierIsValid = !!(items.find(findItem => (
+  useEffect(() => {
+    const itemIdentifierIsInvalid = !(items?.find(findItem => (
       findItem[itemIdentifier]
     )));
 
-    if (!identifierIsValid) {
+    const hasItems = !!items?.length;
+
+    if (itemIdentifierIsInvalid && hasItems) {
       throw new Error("Please, make sure to provide a valid identifier");
     }
   }, [
+    itemIdentifier,
+    items,
+  ]);
+
+  useEffect(() => {
+    let updatedItemsList: Item<T>[] = [];
+
+    if (items) {
+      updatedItemsList = items.map(listItem => {
+        const isSelected = !!(selectedItems.find(selectedItem => (
+          selectedItem[itemIdentifier] === listItem[itemIdentifier]
+        )));
+
+        return {
+          ...listItem,
+          selected: isSelected,
+        };
+      });
+    }
+
+    setItemsList(updatedItemsList);
+  }, [
+    selectedItems,
     itemIdentifier,
     items,
   ]);
@@ -37,9 +56,11 @@ function useSelectedItems<T>({
     const isSelected = selectedItemIndex >= 0;
 
     if (isSelected) {
-      setSelectedItems(prev => update(prev, {
-        $splice: [[selectedItemIndex, 1]],
-      }));
+      setSelectedItems(prev => (
+        update(prev, {
+          $splice: [[selectedItemIndex, 1]],
+        })
+      ));
     } else {
       setSelectedItems(prev => (
         update(prev, {
@@ -50,28 +71,6 @@ function useSelectedItems<T>({
   }, [
     itemIdentifier,
     selectedItems,
-  ]);
-
-  useEffect(() => {
-    verifyIfIdentifierIsValid();
-  }, [verifyIfIdentifierIsValid]);
-
-  useEffect(() => {
-    setItemsList(prev => (
-      prev.map(listItem => {
-        const isSelected = !!(selectedItems.find(selectedItem => (
-          selectedItem[itemIdentifier] === listItem[itemIdentifier]
-        )));
-
-        return {
-          ...listItem,
-          selected: isSelected,
-        };
-      })
-    ));
-  }, [
-    selectedItems,
-    itemIdentifier,
   ]);
 
   return [
