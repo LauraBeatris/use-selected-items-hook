@@ -54,7 +54,6 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
-    "nodemon": "^2.0.2",
     "prettier": "^2.0.5",
     "rollup": "^2.21.0",
     "rollup-plugin-peer-deps-external": "^2.2.3",

@@ -32,7 +32,7 @@ const Main: React.FC = () => {
   const fetchTravels = useCallback(async () => {
     getTravels()
       .then(response => {
-        setTravelsItems(response)
+        setTravelsItems(response);
       });
   }, []);
 
