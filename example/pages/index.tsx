@@ -1,22 +1,44 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useSelectedItems } from "use-selected-items-hook";
+import { BeatLoader } from "react-spinners";
 import classNames from "classnames";
 
 import { AspectRatio } from "../components/ui";
-import travels from "../fixtures/travels";
 import TravelsModal from "../components/TravelsModal";
+import travels from "../fixtures/travels";
+import { Travel } from "../shared/types";
+
+const getTravels = (): Promise<Travel[]> => (
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(travels);
+    }, 2000);
+  })
+);
 
 const Main: React.FC = () => {
+  const [travelsItems, setTravelsItems] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [
     selectedItems,
     listItems,
     { toggleItem },
   ] = useSelectedItems({
     itemIdentifier: "id",
-    items: travels,
+    items: travelsItems,
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const fetchTravels = useCallback(async () => {
+    getTravels()
+      .then(response => {
+        setTravelsItems(response)
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchTravels();
+  }, [fetchTravels]);
 
   const handleClick = (item) => () => {
     toggleItem(item);
@@ -32,7 +54,7 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <div>
+      <div className="h-full flex flex-col">
         <header className="p-4 border-b-2 border-gray-200 flex justify-between items-center relative">
           <h1 className="text-3xl font-semibold text-gray-800">Select a travel</h1>
           <button
@@ -44,9 +66,9 @@ const Main: React.FC = () => {
           </button>
         </header>
 
-        <main className="p-4 mt-4">
-          <div className="px-12 space-y-12">
-            {
+        <main className="mt-auto mb-auto p-4 px-12 space-y-12">
+          {
+            listItems?.length ? (
               listItems.map((item) => {
                 const itemClasses = classNames("relative cursor-pointer rounded-lg border-4 border-white border-solid", {
                   "border-indigo-500": item.selected,
@@ -72,8 +94,12 @@ const Main: React.FC = () => {
                   </div>
                 );
               })
-            }
-          </div>
+            ) : (
+              <div className="h-full flex items-center justify-center">
+                <BeatLoader />
+              </div>
+            )
+          }
         </main>
       </div>
 
