@@ -13,6 +13,7 @@ jobs:
       with:
         node-version: 12
         registry-url: https://registry.npmjs.org/
+      - run: cd use-selected-items-hook
       - run: yarn install
       - run: npm publish
       - env:
