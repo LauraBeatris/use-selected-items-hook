@@ -12,9 +12,9 @@ const App: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => (
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
 
-    <div className="sm:py-8 min-h-screen w-screen overflow-y-hidden bg-indigo-200">
+    <div className="sm:py-8 h-screen w-screen overflow-y-hidden bg-indigo-200">
       <div
-        className="bg-white mx-auto overflow-hidden shadow-xl sm:rounded overflow-y-auto"
+        className="h-full min-h-full bg-white mx-auto overflow-hidden shadow-xl sm:rounded overflow-y-auto"
         style={{ maxWidth: "375px" }}
       >
         <Component {...pageProps} />
