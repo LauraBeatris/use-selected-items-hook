@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import update from "immutability-helper";
+import invariant from "tiny-invariant";
 
 import { HookArguments, HookReturnValues, Item } from "./types";
 
@@ -11,14 +12,13 @@ function useSelectedItems<T>({
   const [itemsList, setItemsList] = useState<Item<T>[]>([]);
 
   useEffect(() => {
-    const itemIdentifierIsInvalid = !(items?.find(findItem => (
+    const hasItems = !!items?.length;
+    const itemIdentifierIsValid = !!(items?.find(findItem => (
       findItem[itemIdentifier]
     )));
 
-    const hasItems = !!items?.length;
-
-    if (itemIdentifierIsInvalid && hasItems) {
-      throw new Error("Please, make sure to provide a valid identifier");
+    if (hasItems) {
+      invariant(itemIdentifierIsValid, "Please, make sure to provide a valid identifier");
     }
   }, [
     itemIdentifier,
