@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-        registry-url: https://registry.npmjs.org/
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
       - run: cd use-selected-items-hook
       - run: yarn install
       - run: npm publish
