@@ -16,5 +16,5 @@ jobs:
       - run: cd use-selected-items-hook
       - run: yarn install
       - run: npm publish
-      - env:
+        env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
