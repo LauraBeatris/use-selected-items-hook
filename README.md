@@ -30,6 +30,7 @@
 * [Installation](#construction_worker-installation)
 * [Usage](#pushpin-goals)
 * [API](#computer-api)
+* [Builds](#hammer-builds)
 * [FAQ](#postbox-faq)
 * [Found a bug? Missing a specific feature?](#bug-issues)
 * [Contributing](#tada-contributing)
@@ -122,6 +123,10 @@ The actions allow you to manipulate items.
 
 - ``toggleItem``: Toggle the selected item, by changing the state and pushing or removing from the array.
 
+# :hammer: Builds
+- `es` (EcmaScript module)
+- `cjs` (CommonJS)
+
 # :postbox: Faq
 
 **Question:** What are the tecnologies used in this project?
@@ -140,6 +145,7 @@ Check out the [contributing](https://github.com/LauraBeatris/use-selected-items-
 # :closed_book: License
 
 Released in 2020
+
 This project is under the [MIT license](https://github.com/LauraBeatris/use-selected-items-hook/master/LICENSE).
 
 Made with love by [Laura Beatris](https://github.com/LauraBeatris) 💜🚀
