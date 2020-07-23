@@ -14,6 +14,7 @@
   ],
   "main": "build/index.js",
   "module": "build/index.es.js",
+  "types": "build/types.d.ts",
   "files": [
     "build"
   ],
