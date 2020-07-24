@@ -28,7 +28,7 @@
 
 * [Features](#rocket-features)
 * [Installation](#construction_worker-installation)
-* [Usage](#pushpin-goals)
+* [Usage](#pushpin-usage)
 * [API](#computer-api)
 * [Builds](#hammer-builds)
 * [FAQ](#postbox-faq)
