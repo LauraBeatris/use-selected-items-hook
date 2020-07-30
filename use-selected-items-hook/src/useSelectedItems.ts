@@ -13,9 +13,9 @@ function useSelectedItems<T>({
 
   useEffect(() => {
     const hasItems = !!items?.length;
-    const itemIdentifierIsValid = !!(items?.find(findItem => (
+    const itemIdentifierIsValid = items?.some(findItem => (
       findItem[itemIdentifier]
-    )));
+    ));
 
     if (hasItems) {
       invariant(itemIdentifierIsValid, "Please, make sure to provide a valid identifier");
