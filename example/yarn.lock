@@ -8331,10 +8331,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-selected-items-hook@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/use-selected-items-hook/-/use-selected-items-hook-1.0.7.tgz#062381446b338548454b9c89dde1edfb5a0ac810"
-  integrity sha512-Yk7kxmpBZjRMzO/fbQYhQQ3ljwsWHPqrkatL1fioyJt/OTi/blLfFr5wQ3Q9iecJCPFhSg4PRFC3V7YhHmfjtQ==
+use-selected-items-hook@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/use-selected-items-hook/-/use-selected-items-hook-1.0.9.tgz#ae23641500431f40711844efc29e1a6a6f685e56"
+  integrity sha512-blOtLJfqMSOOkthBhbEFGk83Am1nafquMNOsxOrpbpYmc+oAuPEWnNuT90l9jV7m+VWDabQJvREauHaqIF05HQ==
   dependencies:
     immutability-helper "^3.1.1"
     react "^16.13.1"
