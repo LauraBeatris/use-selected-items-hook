@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { useSelectedItems } from "use-selected-items-hook";
+import useSelectedItems from "use-selected-items-hook";
 import { BeatLoader } from "react-spinners";
 import classNames from "classnames";
 
@@ -24,7 +24,7 @@ const Main: React.FC = () => {
     selectedItems,
     listItems,
     { toggleItem },
-  ] = useSelectedItems({
+  ] = useSelectedItems<Travel>({
     itemIdentifier: "id",
     items: travelsItems,
   });
