@@ -52,11 +52,13 @@ npm install use-selected-items-hook
 # :pushpin: Usage
 
 ```
+import useSelectedItems from "use-selected-items-hook";
+
    const [
     selectedItems,
     listItems,
     { toggleItem },
-   ] = useSelectedItems({
+   ] = useSelectedItems<ItemType>({
     itemIdentifier: "id",
     items,
   });
