@@ -12,7 +12,7 @@ If you have an idea for an enhancement, go ahead and share it via an issue, but 
 
 This project is MIT-licensed, and this means that you can implement and use whatever enhancements you'd like.
 
-## Commits and Code Padronization
+## Commits and Code Standardization
 
 This project follow the [Conventinal Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. [Husky](https://github.com/typicode/husky) execute scrips according to git hooks in order to test if a developer is following the [Eslint Lint Rules](https://github.com/LauraBeatris/use-selected-items-hook/blob/aea3669c55c47afb80e151b7a0926e9fe0bd1406/use-selected-items-hook/.eslintrc.js#L17) and also the commits convention.
 
