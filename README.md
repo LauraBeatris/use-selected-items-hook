@@ -40,18 +40,18 @@
 
 ### With Yarn
 
-```
+```bash
 yarn add use-selected-items-hook
 ```
 
 ### With NPM
-```
+```bash
 npm install use-selected-items-hook
 ```
 
 # :pushpin: Usage
 
-```
+```typescript
 import useSelectedItems from "use-selected-items-hook";
 
    const [
@@ -97,7 +97,7 @@ order to compare the items.
 # :computer: API
 
 ## useSelectedItem
-```
+```typescript
    export type Item<T> = T & {
       selected: boolean
    };
