@@ -67,9 +67,8 @@ const handleClick = (item) => () => {
    toggleItem(item);
 };
 
-return (
-   {
-    listItems.map((item) => {
+return ({
+   listItems.map((item) => {
       // Applying a specify style to a selected item
       const itemClasses = classNames("cursor-pointer border-white border-solid", {
          "border-black": item.selected,
@@ -83,9 +82,9 @@ return (
          >
             <p>{item.name}</p>
          </div>
-      )})
-   }
-)
+      );
+   })
+})
 ```
 
 As showed in the example above, you're able to pass an array of items from any type of source, as long it has a unique identifier in
@@ -100,7 +99,7 @@ export type Item<T> = T & {
 };
 
 export interface Actions<T> {
-toggleItem: (T) => void,
+   toggleItem: (T) => void,
    setSelectedItems: Dispatch<SetStateAction<T[]>>,
    setItemsList: Dispatch<SetStateAction<Item<T>[]>>
 }
