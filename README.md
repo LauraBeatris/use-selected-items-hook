@@ -54,41 +54,38 @@ npm install use-selected-items-hook
 ```typescript
 import useSelectedItems from "use-selected-items-hook";
 
-   const [
-    selectedItems,
-    listItems,
-    { toggleItem },
-   ] = useSelectedItems<ItemType>({
-    itemIdentifier: "id",
-    items,
-  });
+const [
+  selectedItems,
+  listItems,
+  { toggleItem },
+] = useSelectedItems<ItemType>({
+   itemIdentifier: "id",
+   items,
+});
 
-  const handleClick = (item) => () => {
-    toggleItem(item);
-  };
+const handleClick = (item) => () => {
+   toggleItem(item);
+};
 
-  return (
-     {
-      listItems.map((item) => {
-         // You're able to apply a specify style to a selected item
-         const itemClasses = classNames("cursor-pointer border-white border-solid", {
-            "border-black": item.selected,
-         });
+return (
+   {
+    listItems.map((item) => {
+      // Applying a specify style to a selected item
+      const itemClasses = classNames("cursor-pointer border-white border-solid", {
+         "border-black": item.selected,
+      });
 
-         return (
-            <div
-               key={item.id}
-               className={itemClasses}
-               onClick={handleClick(item)}
-            >
-               <p>
-                  {item.name}
-               </p>
-            </div>
-         );
-      })
+      return (
+         <div
+            key={item.id}
+            className={itemClasses}
+            onClick={handleClick(item)}
+         >
+            <p>{item.name}</p>
+         </div>
+      )})
    }
-  )
+)
 ```
 
 As showed in the example above, you're able to pass an array of items from any type of source, as long it has a unique identifier in
@@ -98,20 +95,20 @@ order to compare the items.
 
 ## useSelectedItem
 ```typescript
-   export type Item<T> = T & {
-      selected: boolean
-   };
+export type Item<T> = T & {
+   selected: boolean
+};
 
-   export interface Actions<T> {
-      toggleItem: (T) => void,
-      setSelectedItems: Dispatch<SetStateAction<T[]>>,
-      setItemsList: Dispatch<SetStateAction<Item<T>[]>>
-   }
+export interface Actions<T> {
+toggleItem: (T) => void,
+   setSelectedItems: Dispatch<SetStateAction<T[]>>,
+   setItemsList: Dispatch<SetStateAction<Item<T>[]>>
+}
 
-   useSelectedItems<T>({
-      itemIdentifier: string | number,
-      items: T[],
-   }): [T[], Item<T>[], Actions<T>];
+useSelectedItems<T>({
+   itemIdentifier: string | number,
+   items: T[],
+}): [T[], Item<T>[], Actions<T>];
 ```
 
 The two arrays returned are the following: ``selectedItems`` and ``listItems``.
