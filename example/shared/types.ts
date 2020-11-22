@@ -1,5 +1,5 @@
 export interface Travel {
-  id: string;
+  id: number;
   name: string;
   imageUrl: string;
 }
