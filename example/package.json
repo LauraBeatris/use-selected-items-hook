@@ -29,7 +29,7 @@
     "react-spinners": "^0.9.0",
     "sass": "^1.26.9",
     "tailwindcss": "^1.4.6",
-    "use-selected-items-hook": "^1.0.9"
+    "use-selected-items-hook": "^1.1.9"
   },
   "private": true,
   "devDependencies": {
