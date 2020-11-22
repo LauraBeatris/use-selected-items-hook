@@ -10,9 +10,9 @@ export interface Actions<T> {
   setItemsList: Dispatch<SetStateAction<Item<T>[]>>;
 }
 
-export interface HookArguments<T> {
+export interface HookArguments<T = any> {
   items: T[];
-  itemIdentifier: string | number;
+  itemIdentifier?: any;
 }
 
 export type HookReturnValues<T> = [T[], Item<T>[], Actions<T>];
