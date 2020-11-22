@@ -5,7 +5,7 @@ import { HookArguments, HookReturnValues, Item } from "./types";
 
 export const DEFAULT_ITEM_IDENTIFIER = "id";
 
-function useSelectedItems<T extends Record<string, unknown>>({
+function useSelectedItems<T extends Record<any, any>>({
   items = [],
   itemIdentifier = DEFAULT_ITEM_IDENTIFIER,
 }: HookArguments<T>): HookReturnValues<T> {
@@ -17,7 +17,7 @@ function useSelectedItems<T extends Record<string, unknown>>({
       findItem[itemIdentifier]
     ));
 
-    if (!itemIdentifierIsValid) {
+    if (items.length > 0 && !itemIdentifierIsValid) {
       throw new Error("Please, make sure to provide a valid identifier");
     }
   }, [
