@@ -1,24 +1,24 @@
 import { useState, useCallback, useEffect } from "react";
 import update from "immutability-helper";
-import invariant from "tiny-invariant";
 
 import { HookArguments, HookReturnValues, Item } from "./types";
 
-function useSelectedItems<T>({
-  items,
-  itemIdentifier,
+export const DEFAULT_ITEM_IDENTIFIER = "id";
+
+function useSelectedItems<T extends Record<string, unknown>>({
+  items = [],
+  itemIdentifier = DEFAULT_ITEM_IDENTIFIER,
 }: HookArguments<T>): HookReturnValues<T> {
   const [selectedItems, setSelectedItems] = useState<T[]>([]);
   const [itemsList, setItemsList] = useState<Item<T>[]>([]);
 
   useEffect(() => {
-    const hasItems = !!items?.length;
-    const itemIdentifierIsValid = items?.some(findItem => (
+    const itemIdentifierIsValid = items.some((findItem: T) => (
       findItem[itemIdentifier]
     ));
 
-    if (hasItems) {
-      invariant(itemIdentifierIsValid, "Please, make sure to provide a valid identifier");
+    if (!itemIdentifierIsValid) {
+      throw new Error("Please, make sure to provide a valid identifier");
     }
   }, [
     itemIdentifier,

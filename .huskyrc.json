@@ -2,6 +2,6 @@
   "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged",
-      "pre-push": "eslint --ext .ts,.tsx ./src --fix"
+      "pre-push": "yarn lint"
   }
 }

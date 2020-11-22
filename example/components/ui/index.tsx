@@ -1,5 +1,5 @@
 interface AspectRatioProps {
-  ratio: number
+  ratio: number;
 }
 
 export const AspectRatio: React.FC<AspectRatioProps> = ({ children, ratio }) => (

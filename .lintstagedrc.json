@@ -1,6 +1,6 @@
 {
   "src/**/*.js": [
-      "eslint --ext .ts,.tsx ./src --fix",
+      "yarn lint-code-style",
       "git add"
   ]
 }
