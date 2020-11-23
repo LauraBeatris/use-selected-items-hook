@@ -18,6 +18,9 @@ export enum ActionType {
 
 export type Item<T> = T & {
   isSelected: boolean;
-};
+}
 
-export type State<T = any> = Item<T>[];
+export interface State<T = any, K = any> {
+  items: Item<T>[];
+  itemIdentifierKey: Required<HookArguments<T, K>["itemIdentifierKey"]>;
+}

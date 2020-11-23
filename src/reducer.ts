@@ -2,18 +2,22 @@ import { Reducer } from "react";
 
 import { State, Action, ActionType } from "./types";
 
-const reducer: Reducer<State, Action> = (state, action) => {
+const reducer: Reducer<State<any, any>, Action> = (state, action) => {
   switch (action.type) {
     case ActionType.INITIALIZE_ITEMS: {
       const {
-        initialItems = [],
         initialSelectedItems = [],
+        itemIdentifierKey,
+        initialItems = [],
       } = action.payload ?? {};
 
-      return initialItems.map((item) => ({
-        ...item,
-        isSelected: initialSelectedItems.includes(item),
-      }));
+      return {
+        itemIdentifierKey,
+        items: initialItems.map((item) => ({
+          ...item,
+          isSelected: initialSelectedItems.includes(item),
+        })),
+      };
     }
 
     case ActionType.TOGGLE_ITEM: {
