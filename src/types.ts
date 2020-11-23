@@ -4,7 +4,7 @@ export type SelectedItem<T> = T & {
 
 export interface HookArguments<T> {
   initialItems: T[];
-  itemIdentifier?: any;
+  itemIdentifierKey?: any;
   initialSelectedItems?: T[];
 }
 
