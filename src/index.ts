@@ -1,12 +1,18 @@
-import { Reducer, useReducer, useEffect } from "react";
+import {
+  Reducer,
+  useMemo,
+  useEffect,
+  useReducer,
+  useCallback,
+} from "react";
 
 import {
   HookArguments,
   ActionType,
-  State,
   Action,
+  State,
 } from "./types";
-import { DEFAULT_ITEM_IDENTIFIER, INITIAL_PAYLOAD } from "./constants";
+import { DEFAULT_ITEM_IDENTIFIER_KEY, INITIAL_PAYLOAD } from "./constants";
 
 const reducer: Reducer<State, Action> = (state, action) => {
   const { selectedItems = [], initialSelectedItems = [] } = state;
@@ -35,38 +41,57 @@ const reducer: Reducer<State, Action> = (state, action) => {
 
 function useSelectedItems<T extends Record<any, any>>({
   initialItems = [],
-  itemIdentifier = DEFAULT_ITEM_IDENTIFIER,
+  itemIdentifierKey = DEFAULT_ITEM_IDENTIFIER_KEY,
   initialSelectedItems = [],
 }: HookArguments<T>) {
-  const [payload] = useReducer(reducer, INITIAL_PAYLOAD, (state) => ({
+  const [payload, dispatch] = useReducer(reducer, INITIAL_PAYLOAD, (state) => ({
     ...state,
-    itemIdentifier,
+    itemIdentifierKey,
     initialSelectedItems,
   }));
 
   useEffect(() => {
     const itemsWithInvalidIdentifers = initialItems.filter(
       (findItem: T) => {
-        const hasItemIdentifier = findItem[itemIdentifier];
+        const hasItemIdentifierKey = Boolean(findItem[itemIdentifierKey]);
 
-        return !hasItemIdentifier;
+        return !hasItemIdentifierKey;
       },
     );
 
     const hasInitialItems = initialItems.length > 0;
-    const hasItemsWithInvalidIdentifers = itemsWithInvalidIdentifers.length > 0;
+    const hasItemsWithInvalidIdentifersKeys = itemsWithInvalidIdentifers.length > 0;
 
-    if (hasInitialItems && hasItemsWithInvalidIdentifers) {
+    if (hasInitialItems && hasItemsWithInvalidIdentifersKeys) {
       throw new Error(
-        "Please, make sure to provide a valid identifier to all items",
+        "Please, make sure to provide a valid identifier key to all items",
       );
     }
   }, [
-    itemIdentifier,
+    itemIdentifierKey,
     initialItems,
   ]);
 
-  return payload;
+  const toggleItem = useCallback((itemIdentifierValue: any) => {
+    dispatch({
+      type: ActionType.TOGGLE_ITEM,
+      payload: {
+        itemIdentifierValue,
+      },
+    });
+  }, []);
+
+  const { selectedItems } = payload;
+
+  const returnValue = useMemo(
+    () => ({
+      selectedItems,
+      toggleItem,
+    }),
+    [toggleItem, selectedItems],
+  );
+
+  return returnValue;
 }
 
 export default useSelectedItems;
