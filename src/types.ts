@@ -1,7 +1,3 @@
-export type SelectedItem<T> = T & {
-  isSelected: boolean;
-};
-
 export interface HookArguments<T, K> {
   initialItems: T[];
   itemIdentifierKey?: K;
@@ -10,7 +6,9 @@ export interface HookArguments<T, K> {
 
 export interface Action {
   type: ActionType;
-  payload?: any;
+  payload?: Partial<HookArguments<any, any>> & {
+    itemIdentifierValue?: any;
+  };
 }
 
 export enum ActionType {
@@ -18,6 +16,8 @@ export enum ActionType {
   TOGGLE_ITEM
 }
 
-export interface State<T = any, K = any> extends HookArguments<T, K> {
-  selectedItems: SelectedItem<T>[];
-}
+export type Item<T> = T & {
+  isSelected: boolean;
+};
+
+export type State<T = any> = Item<T>[];
