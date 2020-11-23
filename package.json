@@ -17,7 +17,7 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "lint-code-style": "eslint ./src/**.ts --fix",
+    "lint-code-style": "eslint ./src/*.ts --fix",
     "lint-check-types": "tsc --noemit",
     "lint": "yarn lint-code-style && yarn lint-check-types"
   },

@@ -10,7 +10,7 @@
     "package": "yarn build && yarn export",
     "refresh": "yarn install --force",
     "start": "next start",
-    "lint-code-style": "eslint ./ --ext=.ts,.tsx",
+    "lint-code-style": "eslint ./ --ext=.ts,.tsx --fix",
     "lint-check-types": "tsc --noemit",
     "lint": "yarn lint-code-style && yarn lint-check-types"
   },
@@ -53,7 +53,6 @@
     "eslint-plugin-react-native": "^3.10.0",
     "eslint-plugin-react-native-globals": "^0.1.2",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
     "prettier": "^2.2.0",
     "typescript": "^3.9.6"
   }
