@@ -1,109 +1,33 @@
-import {
-  useMemo,
-  useEffect,
-  useReducer,
-  useCallback,
-} from "react";
+import { useEffect } from "react";
 
-import reducer from "./reducer";
-import {
-  State,
-  Arguments,
-  ActionType,
-  DefaultItem,
-  HookReturnValues,
-} from "./types";
-import { INITIAL_STATE } from "./constants";
+import { HookArguments } from "./types";
+import { DEFAULT_ITEM_IDENTIFIER } from "./constants";
 
-function useSelectedItems<T extends DefaultItem, K extends string>({
+function useSelectedItems<T extends Record<any, any>>({
   initialItems = [],
-  itemIdentifierKey,
-  initialSelectedItems = [],
-}: Arguments<T, K>) {
-  const [{ items }, dispatch] = useReducer(
-    reducer,
-    INITIAL_STATE,
-    (state: State) => ({
-      ...state,
-      itemIdentifierKey,
-    }),
-  );
-
-  const toggleSingleItem = useCallback((itemIdentifierValue: T) => {
-    dispatch({
-      type: ActionType.TOGGLE_SINGLE_ITEM,
-      payload: {
-        itemIdentifierValue,
-      },
-    });
-  }, []);
-
-  const toggleAllItems = useCallback(() => {
-    dispatch({
-      type: ActionType.TOGGLE_ALL_ITEMS,
-    });
-  }, []);
-
+  itemIdentifier = DEFAULT_ITEM_IDENTIFIER,
+}: HookArguments<T>) {
   useEffect(() => {
-    const shouldInitializeItems = (initialItems ?? []).length > 0;
-    const hasItems = items.length > 0;
-
-    if (!shouldInitializeItems || hasItems) {
-      return;
-    }
-
-    dispatch({
-      type: ActionType.INITIALIZE_ITEMS,
-      payload: {
-        initialItems,
-        initialSelectedItems,
-      },
-    });
-  }, [
-    items,
-    initialItems,
-    initialSelectedItems,
-  ]);
-
-  useEffect(() => {
-    const hasItemWithInvalidIdentifierKey = initialItems.some(
+    const itemsWithInvalidIdentifers = initialItems.filter(
       (findItem: T) => {
-        const hasItemIdentifierKey = Object.prototype.hasOwnProperty.call(
-          findItem,
-          itemIdentifierKey,
-        );
+        const hasItemIdentifier = findItem[itemIdentifier];
 
-        return !hasItemIdentifierKey;
+        return !hasItemIdentifier;
       },
     );
 
     const hasInitialItems = initialItems.length > 0;
+    const hasItemsWithInvalidIdentifers = itemsWithInvalidIdentifers.length > 0;
 
-    if (hasInitialItems && hasItemWithInvalidIdentifierKey) {
+    if (hasInitialItems && hasItemsWithInvalidIdentifers) {
       throw new Error(
-        "Please, make sure to provide a valid identifier key to all items",
+        "Please, make sure to provide a valid identifier to all items",
       );
     }
   }, [
+    itemIdentifier,
     initialItems,
-    itemIdentifierKey,
   ]);
-
-  const payload = useMemo<HookReturnValues<T>>(
-    () => ({
-      items,
-      selectedItems: items.filter(item => item.isSelected),
-      toggleAllItems,
-      toggleSingleItem,
-    }),
-    [
-      items,
-      toggleAllItems,
-      toggleSingleItem,
-    ],
-  );
-
-  return payload;
 }
 
 export default useSelectedItems;
