@@ -1,87 +1,33 @@
-import { useState, useCallback, useEffect } from "react";
-import update from "immutability-helper";
+import { useEffect } from "react";
 
-import { HookArguments, HookReturnValues, Item } from "./types";
-
-export const DEFAULT_ITEM_IDENTIFIER = "id";
+import { HookArguments } from "./types";
+import { DEFAULT_ITEM_IDENTIFIER } from "./constants";
 
 function useSelectedItems<T extends Record<any, any>>({
-  items = [],
+  initialItems = [],
   itemIdentifier = DEFAULT_ITEM_IDENTIFIER,
-}: HookArguments<T>): HookReturnValues<T> {
-  const [selectedItems, setSelectedItems] = useState<T[]>([]);
-  const [itemsList, setItemsList] = useState<Item<T>[]>([]);
-
+}: HookArguments<T>) {
   useEffect(() => {
-    const itemIdentifierIsValid = items.some((findItem: T) => (
-      findItem[itemIdentifier]
-    ));
+    const itemsWithInvalidIdentifers = initialItems.filter(
+      (findItem: T) => {
+        const hasItemIdentifier = findItem[itemIdentifier];
 
-    if (items.length > 0 && !itemIdentifierIsValid) {
-      throw new Error("Please, make sure to provide a valid identifier");
+        return !hasItemIdentifier;
+      },
+    );
+
+    const hasInitialItems = initialItems.length > 0;
+    const hasItemsWithInvalidIdentifers = itemsWithInvalidIdentifers.length > 0;
+
+    if (hasInitialItems && hasItemsWithInvalidIdentifers) {
+      throw new Error(
+        "Please, make sure to provide a valid identifier to all items",
+      );
     }
   }, [
     itemIdentifier,
-    items,
+    initialItems,
   ]);
-
-  useEffect(() => {
-    let updatedItemsList: Item<T>[] = [];
-
-    if (items) {
-      updatedItemsList = items.map(listItem => {
-        const isSelected = !!(selectedItems.find(selectedItem => (
-          selectedItem[itemIdentifier] === listItem[itemIdentifier]
-        )));
-
-        return {
-          ...listItem,
-          selected: isSelected,
-        };
-      });
-    }
-
-    setItemsList(updatedItemsList);
-  }, [
-    selectedItems,
-    itemIdentifier,
-    items,
-  ]);
-
-  const toggleItem = useCallback((item) => {
-    const selectedItemIndex = selectedItems.findIndex(findItem => (
-      findItem[itemIdentifier] === item[itemIdentifier]
-    ));
-
-    const isSelected = selectedItemIndex >= 0;
-
-    if (isSelected) {
-      setSelectedItems(prev => (
-        update(prev, {
-          $splice: [[selectedItemIndex, 1]],
-        })
-      ));
-    } else {
-      setSelectedItems(prev => (
-        update(prev, {
-          $push: [item],
-        })
-      ));
-    }
-  }, [
-    itemIdentifier,
-    selectedItems,
-  ]);
-
-  return [
-    selectedItems,
-    itemsList,
-    {
-      toggleItem,
-      setSelectedItems,
-      setItemsList,
-    },
-  ];
 }
 
 export default useSelectedItems;
