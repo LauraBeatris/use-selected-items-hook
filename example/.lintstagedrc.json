@@ -1,6 +1,0 @@
-{
-  "src/**/*.js": [
-      "yarn lint-code-style",
-      "git add"
-  ]
-}
