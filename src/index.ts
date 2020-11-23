@@ -1,43 +1,13 @@
 import {
-  Reducer,
   useMemo,
   useEffect,
   useReducer,
   useCallback,
 } from "react";
 
-import {
-  HookArguments,
-  ActionType,
-  Action,
-  State,
-} from "./types";
+import reducer from "./reducer";
+import { HookArguments, ActionType } from "./types";
 import { DEFAULT_ITEM_IDENTIFIER_KEY, INITIAL_PAYLOAD } from "./constants";
-
-const reducer: Reducer<State, Action> = (state, action) => {
-  const { selectedItems = [], initialSelectedItems = [] } = state;
-
-  switch (action.type) {
-    case ActionType.INITIALIZE_ITEMS: {
-      return {
-        ...state,
-        selectedItems: selectedItems.map((item) => ({
-          ...item,
-          isSelected: initialSelectedItems.includes(item),
-        })),
-      };
-    }
-
-    case ActionType.TOGGLE_ITEM: {
-      // Execute logic
-      return state;
-    }
-
-    default: {
-      throw new Error("Unknown action type");
-    }
-  }
-};
 
 function useSelectedItems<T extends Record<any, any>>({
   initialItems = [],
