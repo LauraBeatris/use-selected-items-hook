@@ -6,7 +6,7 @@ import { AspectRatio } from "./ui";
 interface TravelsModalProps {
   isModalOpen: boolean;
   handleCloseModal: () => void;
-  travels: Travel[]
+  travels: Travel[];
 }
 
 const TravelsModal: React.FC<TravelsModalProps> = ({
