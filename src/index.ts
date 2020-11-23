@@ -6,17 +6,17 @@ import {
 } from "react";
 
 import reducer from "./reducer";
-import { HookArguments, ActionType } from "./types";
+import { HookArguments, ActionType, SelectedItem } from "./types";
 import { DEFAULT_ITEM_IDENTIFIER_KEY, INITIAL_PAYLOAD } from "./constants";
 
-function useSelectedItems<T extends Record<any, any>>({
+function useSelectedItems<T extends Record<any, any>, K>({
   initialItems = [],
-  itemIdentifierKey = DEFAULT_ITEM_IDENTIFIER_KEY,
+  itemIdentifierKey,
   initialSelectedItems = [],
-}: HookArguments<T>) {
+}: HookArguments<T, K>) {
   const [payload, dispatch] = useReducer(reducer, INITIAL_PAYLOAD, (state) => ({
     ...state,
-    itemIdentifierKey,
+    itemIdentifierKey: DEFAULT_ITEM_IDENTIFIER_KEY,
     initialSelectedItems,
   }));
 
@@ -42,7 +42,7 @@ function useSelectedItems<T extends Record<any, any>>({
     initialItems,
   ]);
 
-  const toggleItem = useCallback((itemIdentifierValue: any) => {
+  const toggleItem = useCallback((itemIdentifierValue: K) => {
     dispatch({
       type: ActionType.TOGGLE_ITEM,
       payload: {
@@ -55,7 +55,7 @@ function useSelectedItems<T extends Record<any, any>>({
 
   const returnValue = useMemo(
     () => ({
-      selectedItems,
+      selectedItems: selectedItems as SelectedItem<T>[],
       toggleItem,
     }),
     [toggleItem, selectedItems],
