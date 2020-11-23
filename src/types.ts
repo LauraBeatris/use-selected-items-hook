@@ -1,18 +1,23 @@
-import { SetStateAction, Dispatch } from "react";
-
-export type Item<T> = T & {
-  selected: boolean;
+export type SelectedItem<T> = T & {
+  isSelected: boolean;
 };
 
-export interface Actions<T> {
-  toggleItem: (item: T) => void;
-  setSelectedItems: Dispatch<SetStateAction<T[]>>;
-  setItemsList: Dispatch<SetStateAction<Item<T>[]>>;
-}
-
-export interface HookArguments<T = any> {
-  items: T[];
+export interface HookArguments<T> {
+  initialItems: T[];
   itemIdentifier?: any;
+  initialSelectedItems?: T[];
 }
 
-export type HookReturnValues<T> = [T[], Item<T>[], Actions<T>];
+export interface Action {
+  type: ActionType;
+  payload?: any;
+}
+
+export enum ActionType {
+  INITIALIZE_ITEMS,
+  TOGGLE_ITEM
+}
+
+export interface State<T = any> extends HookArguments<T> {
+  selectedItems: SelectedItem<T>[];
+}
