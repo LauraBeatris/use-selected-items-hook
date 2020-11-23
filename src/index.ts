@@ -13,13 +13,14 @@ import {
   Action,
   State,
 } from "./types";
+import { INITIAL_PAYLOAD } from "./constants";
 
-function useSelectedItems<T extends Record<any, any>, K>({
+function useSelectedItems<T, K>({
   initialItems = [],
   itemIdentifierKey,
   initialSelectedItems = [],
 }: HookArguments<T, K>) {
-  const [items, dispatch] = useReducer<Reducer<State<T>, Action>>(reducer, []);
+  const [items, dispatch] = useReducer<Reducer<State, Action>>(reducer, INITIAL_PAYLOAD);
 
   useEffect(() => {
     const itemsWithInvalidIdentifers = initialItems.filter(
@@ -58,15 +59,14 @@ function useSelectedItems<T extends Record<any, any>, K>({
     initialSelectedItems,
   ]);
 
-  const toggleItem = useCallback((itemIdentifierValue: K) => {
+  const toggleItem = useCallback((itemIdentifierValue: T[K]) => {
     dispatch({
       type: ActionType.TOGGLE_ITEM,
       payload: {
-        itemIdentifierKey,
         itemIdentifierValue,
       },
     });
-  }, [itemIdentifierKey]);
+  }, []);
 
   const returnValue = useMemo(
     () => ({
