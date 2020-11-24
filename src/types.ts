@@ -22,5 +22,5 @@ export type Item<T> = T & {
 
 export interface State<T = any, K = any> {
   items: Item<T>[];
-  itemIdentifierKey: Required<HookArguments<T, K>["itemIdentifierKey"]>;
+  itemIdentifierKey: K;
 }
