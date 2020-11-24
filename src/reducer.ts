@@ -2,7 +2,7 @@ import { Reducer } from "react";
 
 import { State, Action, ActionType } from "./types";
 
-const reducer: Reducer<State<any, any>, Action> = (state, action) => {
+const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case ActionType.INITIALIZE_ITEMS: {
       const {

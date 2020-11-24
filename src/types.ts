@@ -1,12 +1,16 @@
-export interface HookArguments<T, K> {
+export type DefaultItem = Record<any, any>;
+
+export type DefaultItemIdentifierKey = any;
+
+export interface HookArguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
   initialItems: T[];
-  itemIdentifierKey?: K;
+  itemIdentifierKey: K;
   initialSelectedItems?: T[];
 }
 
 export interface Action {
   type: ActionType;
-  payload?: Partial<HookArguments<any, any>> & {
+  payload?: Partial<HookArguments> & {
     itemIdentifierValue?: any;
   };
 }
@@ -20,7 +24,7 @@ export type Item<T> = T & {
   isSelected: boolean;
 }
 
-export interface State<T = any, K = any> {
+export interface State<T = DefaultItem, K = DefaultItemIdentifierKey> {
   items: Item<T>[];
   itemIdentifierKey: K;
 }
