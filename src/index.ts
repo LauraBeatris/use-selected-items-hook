@@ -1,5 +1,4 @@
 import {
-  Reducer,
   useMemo,
   useEffect,
   useReducer,
@@ -11,7 +10,6 @@ import {
   HookArguments,
   DefaultItem,
   ActionType,
-  Action,
   State,
 } from "./types";
 import { INITIAL_STATE } from "./constants";
@@ -21,7 +19,14 @@ function useSelectedItems<T extends DefaultItem, K>({
   itemIdentifierKey,
   initialSelectedItems = [],
 }: HookArguments<T, K>) {
-  const [items, dispatch] = useReducer<Reducer<State, Action>>(reducer, INITIAL_STATE);
+  const [items, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE,
+    (state: State) => ({
+      ...state,
+      itemIdentifierKey,
+    }),
+  );
 
   useEffect(() => {
     const itemsWithInvalidIdentifers = initialItems.filter(
@@ -50,7 +55,6 @@ function useSelectedItems<T extends DefaultItem, K>({
       type: ActionType.INITIALIZE_ITEMS,
       payload: {
         initialItems,
-        itemIdentifierKey,
         initialSelectedItems,
       },
     });

@@ -3,11 +3,12 @@ import { Reducer } from "react";
 import { State, Action, ActionType } from "./types";
 
 const reducer: Reducer<State, Action> = (state, action) => {
+  const { itemIdentifierKey } = state;
+
   switch (action.type) {
     case ActionType.INITIALIZE_ITEMS: {
       const {
         initialSelectedItems = [],
-        itemIdentifierKey,
         initialItems = [],
       } = action.payload ?? {};
 

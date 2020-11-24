@@ -10,7 +10,7 @@ export interface HookArguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
 
 export interface Action {
   type: ActionType;
-  payload?: Partial<HookArguments> & {
+  payload?: Omit<Partial<HookArguments>, "itemIdentifierKey"> & {
     itemIdentifierValue?: any;
   };
 }
