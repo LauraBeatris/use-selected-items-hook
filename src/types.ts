@@ -10,14 +10,14 @@ export interface HookArguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
 
 export interface Action {
   type: ActionType;
-  payload?: Omit<Partial<HookArguments>, "itemIdentifierKey"> & {
-    itemIdentifierValue?: any;
+  payload: Omit<Partial<HookArguments>, "itemIdentifierKey"> & {
+    item?: DefaultItem;
   };
 }
 
 export enum ActionType {
   INITIALIZE_ITEMS,
-  TOGGLE_ITEM
+  TOGGLE_SELECTED_STATUS
 }
 
 export type Item<T> = T & {

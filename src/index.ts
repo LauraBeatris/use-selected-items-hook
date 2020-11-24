@@ -64,11 +64,11 @@ function useSelectedItems<T extends DefaultItem, K>({
     initialSelectedItems,
   ]);
 
-  const toggleItem = useCallback((itemIdentifierValue: T[K]) => {
+  const toggleItem = useCallback((item: T) => {
     dispatch({
-      type: ActionType.TOGGLE_ITEM,
+      type: ActionType.TOGGLE_SELECTED_STATUS,
       payload: {
-        itemIdentifierValue,
+        item,
       },
     });
   }, []);

@@ -1,16 +1,17 @@
 import { Reducer } from "react";
+import produce from "immer";
 
 import { State, Action, ActionType } from "./types";
 
 const reducer: Reducer<State, Action> = (state, action) => {
-  const { itemIdentifierKey } = state;
-
   switch (action.type) {
     case ActionType.INITIALIZE_ITEMS: {
+      const { itemIdentifierKey } = state;
+
       const {
         initialSelectedItems = [],
         initialItems = [],
-      } = action.payload ?? {};
+      } = action.payload;
 
       return {
         itemIdentifierKey,
@@ -21,8 +22,27 @@ const reducer: Reducer<State, Action> = (state, action) => {
       };
     }
 
-    case ActionType.TOGGLE_ITEM: {
-      return state;
+    case ActionType.TOGGLE_SELECTED_STATUS: {
+      const { itemIdentifierKey } = state;
+
+      const { item = {} } = action.payload;
+
+      return produce(state, draftState => {
+        draftState.items.map((itemFound) => {
+          const isItem = itemFound[itemIdentifierKey] === item[itemIdentifierKey];
+
+          if (!isItem) {
+            return itemFound;
+          }
+
+          return ({
+            ...itemFound,
+            isSelected: !itemFound.isSelected,
+          });
+        });
+
+        return draftState;
+      });
     }
 
     default: {
