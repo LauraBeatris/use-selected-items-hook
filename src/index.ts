@@ -9,18 +9,19 @@ import {
 import reducer from "./reducer";
 import {
   HookArguments,
+  DefaultItem,
   ActionType,
   Action,
   State,
 } from "./types";
-import { INITIAL_PAYLOAD } from "./constants";
+import { INITIAL_STATE } from "./constants";
 
-function useSelectedItems<T, K>({
+function useSelectedItems<T extends DefaultItem, K>({
   initialItems = [],
   itemIdentifierKey,
   initialSelectedItems = [],
 }: HookArguments<T, K>) {
-  const [items, dispatch] = useReducer<Reducer<State, Action>>(reducer, INITIAL_PAYLOAD);
+  const [items, dispatch] = useReducer<Reducer<State, Action>>(reducer, INITIAL_STATE);
 
   useEffect(() => {
     const itemsWithInvalidIdentifers = initialItems.filter(
