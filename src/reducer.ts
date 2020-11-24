@@ -21,7 +21,6 @@ const reducer: Reducer<State<any, any>, Action> = (state, action) => {
     }
 
     case ActionType.TOGGLE_ITEM: {
-      // Execute logic
       return state;
     }
 
