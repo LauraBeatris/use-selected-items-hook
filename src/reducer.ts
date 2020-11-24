@@ -13,13 +13,14 @@ const reducer: Reducer<State, Action> = (state, action) => {
         initialItems = [],
       } = action.payload;
 
-      return {
-        itemIdentifierKey,
+      return produce(state, draftState => ({
+        ...draftState,
         items: initialItems.map((item) => ({
           ...item,
           isSelected: initialSelectedItems.includes(item),
         })),
-      };
+        itemIdentifierKey,
+      }));
     }
 
     case ActionType.TOGGLE_SELECTED_STATUS: {
