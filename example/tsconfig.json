@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "declaration": true
+    "baseUrl": "."
   },
   "exclude": [
     "node_modules"
