@@ -7,10 +7,11 @@ import {
 
 import reducer from "./reducer";
 import {
-  HookArguments,
-  DefaultItem,
-  ActionType,
   State,
+  Payload,
+  Arguments,
+  ActionType,
+  DefaultItem,
 } from "./types";
 import { INITIAL_STATE } from "./constants";
 
@@ -18,7 +19,7 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
   initialItems = [],
   itemIdentifierKey,
   initialSelectedItems = [],
-}: HookArguments<T, K>) {
+}: Arguments<T, K>) {
   const [{ items }, dispatch] = useReducer(
     reducer,
     INITIAL_STATE,
@@ -84,11 +85,11 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
       );
     }
   }, [
-    itemIdentifierKey,
     initialItems,
+    itemIdentifierKey,
   ]);
 
-  const returnValue = useMemo(
+  const payload = useMemo<Payload<T>>(
     () => ({
       items,
       selectedItems: items.filter(item => item.isSelected),
@@ -102,7 +103,7 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
     ],
   );
 
-  return returnValue;
+  return payload;
 }
 
 export default useSelectedItems;
