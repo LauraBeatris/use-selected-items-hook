@@ -2,7 +2,7 @@ export type DefaultItem = Record<any, any>;
 
 export type DefaultItemIdentifierKey = any;
 
-export interface HookArguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
+export interface Arguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
   initialItems: T[];
   itemIdentifierKey: K;
   initialSelectedItems?: T[];
@@ -10,8 +10,8 @@ export interface HookArguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
 
 export interface Action {
   type: ActionType;
-  payload?: Omit<Partial<HookArguments>, "itemIdentifierKey"> & {
-    itemIdentifierValue?: DefaultItem;
+  payload?: Omit<Partial<Arguments>, "itemIdentifierKey"> & {
+    itemIdentifierValue?: any;
   };
 }
 
@@ -28,4 +28,11 @@ export type Item<T> = T & {
 export interface State<T = DefaultItem, K = DefaultItemIdentifierKey> {
   items: Item<T>[];
   itemIdentifierKey: K;
+}
+
+export interface Payload<T> {
+  items: Item<T>[];
+  selectedItems: Item<T>[];
+  toggleAllItems: () => void;
+  toggleSingleItem: (itemIdentifierValue: any) => void;
 }
