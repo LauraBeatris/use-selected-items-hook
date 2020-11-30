@@ -20,16 +20,17 @@ const Main: React.FC = () => {
   const [travelsItems, setTravelsItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [
+  const {
+    items,
     selectedItems,
-    listItems,
-    { toggleItem },
-  ] = useSelectedItems<Travel>({
-    itemIdentifier: "id",
-    items: travelsItems,
+    toggleAllItems,
+    toggleSingleItem,
+  } = useSelectedItems<Travel, string>({
+    itemIdentifierKey: "id",
+    initialItems: travelsItems,
   });
 
-  const fetchTravels = useCallback(async () => {
+  const fetchTravels = useCallback(() => {
     getTravels()
       .then(response => {
         setTravelsItems(response);
@@ -41,7 +42,7 @@ const Main: React.FC = () => {
   }, [fetchTravels]);
 
   const handleClick = (item) => () => {
-    toggleItem(item);
+    toggleSingleItem(item.id);
   };
 
   const handleOpenModal = useCallback(() => {
@@ -57,21 +58,31 @@ const Main: React.FC = () => {
       <div className="h-full flex flex-col">
         <header className="p-4 border-b-2 border-gray-200 flex justify-between items-center relative">
           <h1 className="text-3xl font-semibold text-gray-800">Select a travel</h1>
-          <button
-            type="button"
-            className="bg-none border-none flex items-center text-indigo-500 focus:outline-none focus:shadow-outline rounded-full p-1"
-            onClick={handleOpenModal}
-          >
-            Submit
-          </button>
+          <div className="flex flex-col items-center">
+            <button
+              type="button"
+              className="bg-none border-none flex items-center text-indigo-500 focus:outline-none focus:shadow-outline rounded-full"
+              onClick={handleOpenModal}
+            >
+              Submit
+            </button>
+
+            <button
+              type="button"
+              className="bg-none border-none flex items-center text-indigo-500 focus:outline-none focus:shadow-outline rounded-full"
+              onClick={toggleAllItems}
+            >
+              Toggle All
+            </button>
+          </div>
         </header>
 
         <main className="mt-auto mb-auto p-4 px-12 space-y-12">
           {
-            listItems?.length ? (
-              listItems.map((item) => {
+            items?.length ? (
+              items.map((item) => {
                 const itemClasses = classNames("relative cursor-pointer rounded-lg border-4 border-white border-solid", {
-                  "border-indigo-500": item.selected,
+                  "border-indigo-500": item.isSelected,
                 });
 
                 return (
@@ -105,8 +116,8 @@ const Main: React.FC = () => {
 
       <TravelsModal
         isModalOpen={isModalOpen}
+        selectedTravels={selectedItems}
         handleCloseModal={handleCloseModal}
-        travels={selectedItems}
       />
     </>
   );

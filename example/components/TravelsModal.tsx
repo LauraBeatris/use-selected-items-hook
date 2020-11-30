@@ -5,14 +5,14 @@ import { AspectRatio } from "./ui";
 
 interface TravelsModalProps {
   isModalOpen: boolean;
+  selectedTravels: Travel[];
   handleCloseModal: () => void;
-  travels: Travel[];
 }
 
 const TravelsModal: React.FC<TravelsModalProps> = ({
   isModalOpen,
   handleCloseModal,
-  travels,
+  selectedTravels = [],
 }) => (
   <Modal
     open={isModalOpen}
@@ -28,8 +28,8 @@ const TravelsModal: React.FC<TravelsModalProps> = ({
 
     <div className="p-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
       {
-        travels.length ? (
-          travels.map((item) => (
+        selectedTravels.length ? (
+          selectedTravels.map((item) => (
             <div
               key={item.id}
               className="relative rounded-lg border-4 border-white border-solid"
