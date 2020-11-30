@@ -1,4 +1,4 @@
-import { Item } from "use-selected-items-hook/types";
+import { Item } from "use-selected-items-hook/dist/types";
 
 import { Travel } from "../../shared/types";
 
