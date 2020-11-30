@@ -9,7 +9,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
       const {
         initialSelectedItems = [],
         initialItems = [],
-      } = action.payload ?? {};
+      } = action.payload;
 
       return update(state, {
         items: {
@@ -22,11 +22,9 @@ const reducer: Reducer<State, Action> = (state, action) => {
     }
 
     case ActionType.TOGGLE_SINGLE_ITEM: {
-      const { itemIdentifierKey } = state;
+      const { items, itemIdentifierKey } = state;
 
-      const { itemIdentifierValue } = action.payload ?? {};
-
-      const { items } = state;
+      const { itemIdentifierValue } = action.payload;
 
       const itemIndex = items.findIndex((itemFound) => (
         itemFound[itemIdentifierKey] === itemIdentifierValue

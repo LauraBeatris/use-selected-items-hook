@@ -8,10 +8,10 @@ import {
 import reducer from "./reducer";
 import {
   State,
-  Payload,
   Arguments,
   ActionType,
   DefaultItem,
+  HookReturnValues,
 } from "./types";
 import { INITIAL_STATE } from "./constants";
 
@@ -89,7 +89,7 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
     itemIdentifierKey,
   ]);
 
-  const payload = useMemo<Payload<T>>(
+  const payload = useMemo<HookReturnValues<T>>(
     () => ({
       items,
       selectedItems: items.filter(item => item.isSelected),
