@@ -1,10 +1,6 @@
-<p align="left">
-   <img src="./docs/logo.png" width="150px"/>
+<p align="center">
+   <img src="./docs/logo.png" width="400"/>
 </p>
-
-# useSelectedItems
-
-> Easily select items based on an array
 
 [![Author](https://img.shields.io/badge/author-LauraBeatris-283366?style=flat-square)](https://github.com/LauraBeatris)
 [![Languages](https://img.shields.io/github/languages/count/LauraBeatris/use-selected-items-hook?color=%23283366&style=flat-square)](#)
