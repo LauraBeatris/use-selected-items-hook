@@ -14,7 +14,7 @@ import {
 } from "./types";
 import { INITIAL_STATE } from "./constants";
 
-function useSelectedItems<T extends DefaultItem, K>({
+function useSelectedItems<T extends DefaultItem, K extends string>({
   initialItems = [],
   itemIdentifierKey,
   initialSelectedItems = [],
@@ -29,16 +29,18 @@ function useSelectedItems<T extends DefaultItem, K>({
   );
 
   useEffect(() => {
-    const itemsWithInvalidIdentifers = initialItems.filter(
+    const hasItemsWithInvalidIdentifersKeys = initialItems.some(
       (findItem: T) => {
-        const hasItemIdentifierKey = Boolean(findItem[itemIdentifierKey]);
+        const hasItemIdentifierKey = Object.prototype.hasOwnProperty.call(
+          findItem,
+          itemIdentifierKey,
+        );
 
         return !hasItemIdentifierKey;
       },
     );
 
     const hasInitialItems = initialItems.length > 0;
-    const hasItemsWithInvalidIdentifersKeys = itemsWithInvalidIdentifers.length > 0;
 
     if (hasInitialItems && hasItemsWithInvalidIdentifersKeys) {
       throw new Error(
