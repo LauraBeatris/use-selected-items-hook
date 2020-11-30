@@ -6,8 +6,6 @@ import { State, Action, ActionType } from "./types";
 const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case ActionType.INITIALIZE_ITEMS: {
-      const { itemIdentifierKey } = state;
-
       const {
         initialSelectedItems = [],
         initialItems = [],
@@ -19,27 +17,26 @@ const reducer: Reducer<State, Action> = (state, action) => {
           ...item,
           isSelected: initialSelectedItems.includes(item),
         })),
-        itemIdentifierKey,
       }));
     }
 
     case ActionType.TOGGLE_SELECTED_STATUS: {
       const { itemIdentifierKey } = state;
 
-      const { item = {} } = action.payload;
+      const { itemIdentifierValue } = action.payload;
 
       return produce(state, draftState => {
-        draftState.items.map((itemFound) => {
-          const isItem = itemFound[itemIdentifierKey] === item[itemIdentifierKey];
+        const { items } = draftState;
 
-          if (!isItem) {
-            return itemFound;
-          }
+        const itemIndex = items.findIndex((itemFound) => (
+          itemFound[itemIdentifierKey] === itemIdentifierValue
+        ));
 
-          return ({
-            ...itemFound,
-            isSelected: !itemFound.isSelected,
-          });
+        const item = items[itemIndex];
+
+        items.splice(itemIndex, 1, {
+          ...item,
+          isSelected: !item.isSelected,
         });
 
         return draftState;

@@ -19,7 +19,7 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
   itemIdentifierKey,
   initialSelectedItems = [],
 }: HookArguments<T, K>) {
-  const [items, dispatch] = useReducer(
+  const [{ items }, dispatch] = useReducer(
     reducer,
     INITIAL_STATE,
     (state: State) => ({
@@ -27,6 +27,36 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
       itemIdentifierKey,
     }),
   );
+
+  const toggleItem = useCallback((itemIdentifierValue: T) => {
+    dispatch({
+      type: ActionType.TOGGLE_SELECTED_STATUS,
+      payload: {
+        itemIdentifierValue,
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    const shouldInitializeItems = (initialItems ?? []).length > 0;
+    const hasItems = items.length > 0;
+
+    if (!shouldInitializeItems || hasItems) {
+      return;
+    }
+
+    dispatch({
+      type: ActionType.INITIALIZE_ITEMS,
+      payload: {
+        initialItems,
+        initialSelectedItems,
+      },
+    });
+  }, [
+    items,
+    initialItems,
+    initialSelectedItems,
+  ]);
 
   useEffect(() => {
     const hasItemWithInvalidIdentifierKey = initialItems.some(
@@ -51,29 +81,6 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
     itemIdentifierKey,
     initialItems,
   ]);
-
-  useEffect(() => {
-    dispatch({
-      type: ActionType.INITIALIZE_ITEMS,
-      payload: {
-        initialItems,
-        initialSelectedItems,
-      },
-    });
-  }, [
-    initialItems,
-    itemIdentifierKey,
-    initialSelectedItems,
-  ]);
-
-  const toggleItem = useCallback((item: T) => {
-    dispatch({
-      type: ActionType.TOGGLE_SELECTED_STATUS,
-      payload: {
-        item,
-      },
-    });
-  }, []);
 
   const returnValue = useMemo(
     () => ({
