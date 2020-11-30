@@ -29,7 +29,7 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
   );
 
   useEffect(() => {
-    const hasItemsWithInvalidIdentifersKeys = initialItems.some(
+    const hasItemWithInvalidIdentifierKey = initialItems.some(
       (findItem: T) => {
         const hasItemIdentifierKey = Object.prototype.hasOwnProperty.call(
           findItem,
@@ -42,7 +42,7 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
 
     const hasInitialItems = initialItems.length > 0;
 
-    if (hasInitialItems && hasItemsWithInvalidIdentifersKeys) {
+    if (hasInitialItems && hasItemWithInvalidIdentifierKey) {
       throw new Error(
         "Please, make sure to provide a valid identifier key to all items",
       );
