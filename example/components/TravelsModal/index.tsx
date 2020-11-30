@@ -1,13 +1,7 @@
 import { Modal } from "react-responsive-modal";
 
-import { Travel } from "../shared/types";
-import { AspectRatio } from "./ui";
-
-interface TravelsModalProps {
-  isModalOpen: boolean;
-  selectedTravels: Travel[];
-  handleCloseModal: () => void;
-}
+import { AspectRatio } from "../ui";
+import { TravelsModalProps } from "./types";
 
 const TravelsModal: React.FC<TravelsModalProps> = ({
   isModalOpen,

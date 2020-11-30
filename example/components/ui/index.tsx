@@ -1,6 +1,4 @@
-interface AspectRatioProps {
-  ratio: number;
-}
+import { AspectRatioProps } from "./types";
 
 export const AspectRatio: React.FC<AspectRatioProps> = ({ children, ratio }) => (
   <div className="relative" style={{ paddingBottom: `${ratio * 100}%` }}>

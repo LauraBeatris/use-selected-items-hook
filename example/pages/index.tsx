@@ -3,10 +3,10 @@ import useSelectedItems from "use-selected-items-hook";
 import { BeatLoader } from "react-spinners";
 import classNames from "classnames";
 
+import { Travel } from "../shared/types";
 import { AspectRatio } from "../components/ui";
 import TravelsModal from "../components/TravelsModal";
 import travels from "../fixtures/travels";
-import { Travel } from "../shared/types";
 
 const getTravels = (): Promise<Travel[]> => (
   new Promise((resolve) => {
