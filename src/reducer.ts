@@ -1,5 +1,5 @@
 import { Reducer } from "react";
-import produce from "immer";
+import update from "immutability-helper";
 
 import { State, Action, ActionType } from "./types";
 
@@ -11,13 +11,14 @@ const reducer: Reducer<State, Action> = (state, action) => {
         initialItems = [],
       } = action.payload ?? {};
 
-      return produce(state, draftState => ({
-        ...draftState,
-        items: initialItems.map((item) => ({
-          ...item,
-          isSelected: initialSelectedItems.includes(item),
-        })),
-      }));
+      return update(state, {
+        items: {
+          $set: initialItems.map((item) => ({
+            ...item,
+            isSelected: initialSelectedItems.includes(item),
+          })),
+        },
+      });
     }
 
     case ActionType.TOGGLE_SINGLE_ITEM: {
@@ -25,32 +26,33 @@ const reducer: Reducer<State, Action> = (state, action) => {
 
       const { itemIdentifierValue } = action.payload ?? {};
 
-      return produce(state, draftState => {
-        const { items } = draftState;
+      const { items } = state;
 
-        const itemIndex = items.findIndex((itemFound) => (
-          itemFound[itemIdentifierKey] === itemIdentifierValue
-        ));
+      const itemIndex = items.findIndex((itemFound) => (
+        itemFound[itemIdentifierKey] === itemIdentifierValue
+      ));
 
-        const item = items[itemIndex];
+      const item = items[itemIndex];
 
-        items.splice(itemIndex, 1, {
-          ...item,
-          isSelected: !item.isSelected,
-        });
-
-        return draftState;
+      return update(state, {
+        items: {
+          $splice: [[itemIndex, 1, {
+            ...item,
+            isSelected: !item.isSelected,
+          }]],
+        },
       });
     }
 
     case ActionType.TOGGLE_ALL_ITEMS: {
-      return produce(state, draftState => ({
-        ...draftState,
-        items: draftState.items.map(item => ({
-          ...item,
-          isSelected: !item.isSelected,
-        })),
-      }));
+      return update(state, {
+        items: {
+          $set: state.items.map(item => ({
+            ...item,
+            isSelected: !item.isSelected,
+          })),
+        },
+      });
     }
 
     default: {
