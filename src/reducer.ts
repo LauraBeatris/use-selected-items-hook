@@ -9,7 +9,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
       const {
         initialSelectedItems = [],
         initialItems = [],
-      } = action.payload;
+      } = action.payload ?? {};
 
       return produce(state, draftState => ({
         ...draftState,
@@ -20,10 +20,10 @@ const reducer: Reducer<State, Action> = (state, action) => {
       }));
     }
 
-    case ActionType.TOGGLE_SELECTED_STATUS: {
+    case ActionType.TOGGLE_SINGLE_ITEM: {
       const { itemIdentifierKey } = state;
 
-      const { itemIdentifierValue } = action.payload;
+      const { itemIdentifierValue } = action.payload ?? {};
 
       return produce(state, draftState => {
         const { items } = draftState;
@@ -41,6 +41,16 @@ const reducer: Reducer<State, Action> = (state, action) => {
 
         return draftState;
       });
+    }
+
+    case ActionType.TOGGLE_ALL_ITEMS: {
+      return produce(state, draftState => ({
+        ...draftState,
+        items: draftState.items.map(item => ({
+          ...item,
+          isSelected: !item.isSelected,
+        })),
+      }));
     }
 
     default: {

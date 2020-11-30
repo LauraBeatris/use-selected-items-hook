@@ -28,12 +28,18 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
     }),
   );
 
-  const toggleItem = useCallback((itemIdentifierValue: T) => {
+  const toggleSingleItem = useCallback((itemIdentifierValue: T) => {
     dispatch({
-      type: ActionType.TOGGLE_SELECTED_STATUS,
+      type: ActionType.TOGGLE_SINGLE_ITEM,
       payload: {
         itemIdentifierValue,
       },
+    });
+  }, []);
+
+  const toggleAllItems = useCallback(() => {
+    dispatch({
+      type: ActionType.TOGGLE_ALL_ITEMS,
     });
   }, []);
 
@@ -85,12 +91,14 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
   const returnValue = useMemo(
     () => ({
       items,
-      toggleItem,
       selectedItems: items.filter(item => item.isSelected),
+      toggleAllItems,
+      toggleSingleItem,
     }),
     [
       items,
-      toggleItem,
+      toggleAllItems,
+      toggleSingleItem,
     ],
   );
 
