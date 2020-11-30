@@ -86,6 +86,7 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
     () => ({
       items,
       toggleItem,
+      selectedItems: items.filter(item => item.isSelected),
     }),
     [
       items,
