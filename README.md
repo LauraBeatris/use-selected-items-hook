@@ -1,10 +1,6 @@
-<p align="left">
-   <img src="./docs/logo.png" width="150px"/>
+<p align="center">
+   <img src="./.github/docs/logo.png" width="400"/>
 </p>
-
-# useSelectedItems
-
-> Easily select items based on an array
 
 [![Author](https://img.shields.io/badge/author-LauraBeatris-283366?style=flat-square)](https://github.com/LauraBeatris)
 [![Languages](https://img.shields.io/github/languages/count/LauraBeatris/use-selected-items-hook?color=%23283366&style=flat-square)](#)
@@ -15,7 +11,7 @@
 
 ---
 <p align="center">
-   <img src="docs/example.gif" width="500"/>
+   <img src="./.github/docs/example.gif" width="500"/>
 </p>
 
 <p align="center">
@@ -26,7 +22,6 @@
 
 # :pushpin: Table of Contents
 
-* [Features](#rocket-features)
 * [Installation](#construction_worker-installation)
 * [Usage](#pushpin-usage)
 * [API](#computer-api)
@@ -51,75 +46,101 @@ npm install use-selected-items-hook
 
 # :pushpin: Usage
 
-```typescript
+```tsx
 import useSelectedItems from "use-selected-items-hook";
+import classNames from "classNames";
 
-const [
-  selectedItems,
-  listItems,
-  { toggleItem },
-] = useSelectedItems<ItemType>({
-   itemIdentifier: "id",
-   items,
-});
+interface ExampleItem {
+   id: number;
+   text: string;
+}
 
-const handleClick = (item) => () => {
-   toggleItem(item);
+const initialExampleItems = [
+   { id: 1, text: "What's up" }
+];
+
+const Example: React.FC = () => {
+  const [exampleItems, setExampleItems] = useState(initialExampleItems);
+
+  const {
+    items,
+    selectedItems,
+    toggleAllItems,
+    toggleSingleItem,
+  } = useSelectedItems<ExampleItem, ExampleItem["text"]>({
+    itemIdentifierKey: "id",
+    initialItems: exampleItems,
+  });
+
+   const handleClick = (itemId) => () => {
+      toggleSingleItem(itemId);
+   };
+
+   return (
+      <div>
+         {
+            items.map(item => {
+               // Applying classes according to the isSelected status 
+               const itemClasses = classNames("relative cursor-pointer rounded-lg border-4 border-white border-solid", {
+                  "border-indigo-500": item.isSelected,
+               });
+
+                return (
+                  <button
+                    key={item.id}
+                    className={itemClasses}
+                    onClick={handleClick(item.id)}
+                  >
+                     {item.text}
+                  </button>
+                );
+            })
+         }
+      </div>
+   )
 };
-
-return ({
-   listItems.map((item) => {
-      // Applying a specify style to a selected item
-      const itemClasses = classNames("cursor-pointer border-white border-solid", {
-         "border-black": item.selected,
-      });
-
-      return (
-         <div
-            key={item.id}
-            className={itemClasses}
-            onClick={handleClick(item)}
-         >
-            <p>{item.name}</p>
-         </div>
-      );
-   })
-})
 ```
 
-As showed in the example above, you're able to pass an array of items from any type of source, as long it has a unique identifier in
+As shown in the example above, you're able to pass an array of items from any type of source, as long it has a unique identifier in
 order to compare the items.
 
 # :computer: API
 
-## useSelectedItem
+## Types Definitions
 ```typescript
-export type Item<T> = T & {
-   selected: boolean
-};
-
-export interface Actions<T> {
-   toggleItem: (T) => void,
-   setSelectedItems: Dispatch<SetStateAction<T[]>>,
-   setItemsList: Dispatch<SetStateAction<Item<T>[]>>
+export interface Arguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
+  initialItems: T[];
+  itemIdentifierKey: K;
+  initialSelectedItems?: T[];
 }
 
-useSelectedItems<T>({
-   itemIdentifier: string | number,
-   items: T[],
-}): [T[], Item<T>[], Actions<T>];
+export interface HookReturnValues<T> {
+  items: Item<T>[];
+  selectedItems: Item<T>[];
+  toggleAllItems: () => void;
+  toggleSingleItem: (itemIdentifierValue: any) => void;
+}
 ```
-
-The two arrays returned are the following: ``selectedItems`` and ``listItems``.
-
-- ``selectedItems``: The items currently selected and that might be send for an API.
-- ``listItems``: The items with the boolean state of ``selected``, which you're able to map and show an visual feedback.
 
 ---
 
-The actions allow you to manipulate items.
+## Initialization
+To initialize the `items` array, the `initialItems` must be passed as an argument. It's also possible to initialize the items already with an `isSelected` state, but to do so, it's necessary to provide the `initialSelectedItems` argument.
 
-- ``toggleItem``: Toggle the selected item, by changing the state and pushing or removing from the array.
+---
+
+## The two arrays returned by the hook are the following: ``items`` and ``selectedItems``.
+
+- ``selectedItems``: The items that are currently selected.
+- ``listItems``: The items with the status of ``isSelected``. Refer to the [Usage](#pushpin-usage).
+
+---
+
+## The actions allow to manipulate the `isSelected` status of `items`:
+
+- ``toggleSingleItem``: Toggle a single item.
+
+- ``toggleAllItems``: Toggle all items.
 
 # :hammer: Builds
 - `es` (EcmaScript module)
@@ -127,9 +148,9 @@ The actions allow you to manipulate items.
 
 # :postbox: Faq
 
-**Question:** What are the tecnologies used in this project?
+**Question:** What are the technologies used in this project?
 
-**Answer:** The tecnologies and libraries used in this project are [React](https://en.reactjs.org/) + [TypeScript](https://www.typescriptlang.org/) and [Immutability Helper](https://github.com/kolodny/immutability-helper) to
+**Answer:** The technologies and libraries used in this project are [React](https://en.reactjs.org/) + [TypeScript](https://www.typescriptlang.org/) and [Immutability Helper](https://github.com/kolodny/immutability-helper) to
 handle the array manipulation.
 
 # :bug: Issues
