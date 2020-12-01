@@ -1,87 +1,109 @@
-import { useState, useCallback, useEffect } from "react";
-import update from "immutability-helper";
+import {
+  useMemo,
+  useEffect,
+  useReducer,
+  useCallback,
+} from "react";
 
-import { HookArguments, HookReturnValues, Item } from "./types";
+import reducer from "./reducer";
+import {
+  State,
+  Arguments,
+  ActionType,
+  DefaultItem,
+  HookReturnValues,
+} from "./types";
+import { INITIAL_STATE } from "./constants";
 
-export const DEFAULT_ITEM_IDENTIFIER = "id";
+function useSelectedItems<T extends DefaultItem, K extends string>({
+  initialItems = [],
+  itemIdentifierKey,
+  initialSelectedItems = [],
+}: Arguments<T, K>) {
+  const [{ items }, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE,
+    (state: State) => ({
+      ...state,
+      itemIdentifierKey,
+    }),
+  );
 
-function useSelectedItems<T extends Record<any, any>>({
-  items = [],
-  itemIdentifier = DEFAULT_ITEM_IDENTIFIER,
-}: HookArguments<T>): HookReturnValues<T> {
-  const [selectedItems, setSelectedItems] = useState<T[]>([]);
-  const [itemsList, setItemsList] = useState<Item<T>[]>([]);
+  const toggleSingleItem = useCallback((itemIdentifierValue: T) => {
+    dispatch({
+      type: ActionType.TOGGLE_SINGLE_ITEM,
+      payload: {
+        itemIdentifierValue,
+      },
+    });
+  }, []);
+
+  const toggleAllItems = useCallback(() => {
+    dispatch({
+      type: ActionType.TOGGLE_ALL_ITEMS,
+    });
+  }, []);
 
   useEffect(() => {
-    const itemIdentifierIsValid = items.some((findItem: T) => (
-      findItem[itemIdentifier]
-    ));
+    const shouldInitializeItems = (initialItems ?? []).length > 0;
+    const hasItems = items.length > 0;
 
-    if (items.length > 0 && !itemIdentifierIsValid) {
-      throw new Error("Please, make sure to provide a valid identifier");
+    if (!shouldInitializeItems || hasItems) {
+      return;
     }
+
+    dispatch({
+      type: ActionType.INITIALIZE_ITEMS,
+      payload: {
+        initialItems,
+        initialSelectedItems,
+      },
+    });
   }, [
-    itemIdentifier,
     items,
+    initialItems,
+    initialSelectedItems,
   ]);
 
   useEffect(() => {
-    let updatedItemsList: Item<T>[] = [];
+    const hasItemWithInvalidIdentifierKey = initialItems.some(
+      (findItem: T) => {
+        const hasItemIdentifierKey = Object.prototype.hasOwnProperty.call(
+          findItem,
+          itemIdentifierKey,
+        );
 
-    if (items) {
-      updatedItemsList = items.map(listItem => {
-        const isSelected = !!(selectedItems.find(selectedItem => (
-          selectedItem[itemIdentifier] === listItem[itemIdentifier]
-        )));
+        return !hasItemIdentifierKey;
+      },
+    );
 
-        return {
-          ...listItem,
-          selected: isSelected,
-        };
-      });
-    }
+    const hasInitialItems = initialItems.length > 0;
 
-    setItemsList(updatedItemsList);
-  }, [
-    selectedItems,
-    itemIdentifier,
-    items,
-  ]);
-
-  const toggleItem = useCallback((item) => {
-    const selectedItemIndex = selectedItems.findIndex(findItem => (
-      findItem[itemIdentifier] === item[itemIdentifier]
-    ));
-
-    const isSelected = selectedItemIndex >= 0;
-
-    if (isSelected) {
-      setSelectedItems(prev => (
-        update(prev, {
-          $splice: [[selectedItemIndex, 1]],
-        })
-      ));
-    } else {
-      setSelectedItems(prev => (
-        update(prev, {
-          $push: [item],
-        })
-      ));
+    if (hasInitialItems && hasItemWithInvalidIdentifierKey) {
+      throw new Error(
+        "Please, make sure to provide a valid identifier key to all items",
+      );
     }
   }, [
-    itemIdentifier,
-    selectedItems,
+    initialItems,
+    itemIdentifierKey,
   ]);
 
-  return [
-    selectedItems,
-    itemsList,
-    {
-      toggleItem,
-      setSelectedItems,
-      setItemsList,
-    },
-  ];
+  const payload = useMemo<HookReturnValues<T>>(
+    () => ({
+      items,
+      selectedItems: items.filter(item => item.isSelected),
+      toggleAllItems,
+      toggleSingleItem,
+    }),
+    [
+      items,
+      toggleAllItems,
+      toggleSingleItem,
+    ],
+  );
+
+  return payload;
 }
 
 export default useSelectedItems;
