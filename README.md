@@ -136,11 +136,11 @@ To initialize the `items` array, the `initialItems` must be passed as an argumen
 
 ---
 
-## The actions allow to manipulate the `isSelected` status of `items`:
+## Actions to manipulate the `isSelected` status of `items`:
 
-- ``toggleSingleItem``: Toggle a single item.
+- ``toggleSingleItem``
 
-- ``toggleAllItems``: Toggle all items.
+- ``toggleAllItems``
 
 # :hammer: Builds
 - `es` (EcmaScript module)
