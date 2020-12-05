@@ -13,9 +13,12 @@ function useSelectedItems<T extends Record<any, any>>({
   const [itemsList, setItemsList] = useState<Item<T>[]>([]);
 
   useEffect(() => {
-    const itemIdentifierIsValid = items.some((findItem: T) => (
-      findItem[itemIdentifier]
-    ));
+    const itemIdentifierIsValid = items.every(
+      (findItem: T) => Object.prototype.hasOwnProperty.call(
+        findItem,
+        itemIdentifier,
+      ),
+    );
 
     if (items.length > 0 && !itemIdentifierIsValid) {
       throw new Error("Please, make sure to provide a valid identifier");
