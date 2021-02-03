@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="./.github/docs/logo.png" width="400"/>
+   <img src="https://raw.githubusercontent.com/LauraBeatris/use-selected-items-hook/master/.github/docs/logo.png" width="400"/>
 </p>
 
 [![Author](https://img.shields.io/badge/author-LauraBeatris-283366?style=flat-square)](https://github.com/LauraBeatris)
@@ -11,7 +11,7 @@
 
 ---
 <p align="center">
-   <img src="./.github/docs/example.gif" width="500"/>
+   <img src="https://github.com/LauraBeatris/use-selected-items-hook/blob/master/.github/docs/example.gif" width="500"/>
 </p>
 
 <p align="center">
