@@ -34,7 +34,7 @@ function useSelectedItems<Item extends DefaultItem>({
   }, []);
 
   useEffect(() => {
-    const shouldInitializeItems = (initialItems ?? []).length > 0;
+    const shouldInitializeItems = initialItems.length > 0;
     const hasItems = items.length > 0;
 
     if (!shouldInitializeItems || hasItems) {
