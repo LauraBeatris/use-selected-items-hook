@@ -1,6 +1,3 @@
 {
-  "*.{ts,tsx}": [
-    "yarn lint-code-style",
-    "git add"
-  ]
+  "*.{ts,tsx}": ["yarn lint-code-style", "yarn test", "git add"]
 }
