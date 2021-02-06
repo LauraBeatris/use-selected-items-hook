@@ -19,7 +19,7 @@ export interface State<T = DefaultItem, K = DefaultItemIdentifierKey> {
 
 export interface HookReturnValues<T> {
   items: Item<T>[];
-  selectedItems: Item<T>[];
+  selectedItems: T[];
   toggleAllItems: () => void;
   toggleSingleItem: (itemIdentifierValue: any) => void;
 }

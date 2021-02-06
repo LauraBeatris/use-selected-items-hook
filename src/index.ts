@@ -85,15 +85,24 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
     itemIdentifierKey,
   ]);
 
+  const selectedItems = useMemo(() => (
+    items
+      .filter(item => item.isSelected)
+      .map(({ isSelected: _isSelected, ...rest }) => ({
+        ...rest,
+      })) as T[]
+  ), [items]);
+
   const payload = useMemo<HookReturnValues<T>>(
     () => ({
       items,
-      selectedItems: items.filter(item => item.isSelected),
+      selectedItems,
       toggleAllItems,
       toggleSingleItem,
     }),
     [
       items,
+      selectedItems,
       toggleAllItems,
       toggleSingleItem,
     ],
