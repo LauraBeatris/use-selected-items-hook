@@ -44,7 +44,7 @@ yarn add use-selected-items-hook
 npm install use-selected-items-hook
 ```
 
-# :pushpin: [Usage](./example/pages/index.tsx) 
+# :pushpin: [Go to example](./example/pages/index.tsx) 
 
 # :computer: API
 
