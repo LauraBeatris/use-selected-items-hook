@@ -75,32 +75,6 @@ describe("useSelectedItems", () => {
     );
   });
 
-  it("should toggle a single item", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
-      itemIdentifierKey: "id",
-      initialItems: initialExampleItems,
-    }));
-
-    act(() => {
-      result.current.toggleSingleItem(1);
-    });
-
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[0]),
-    );
-
-    act(() => {
-      result.current.toggleSingleItem(2);
-    });
-
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[0]),
-    );
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[1]),
-    );
-  });
-
   it("should toggle all items", () => {
     const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
       itemIdentifierKey: "id",
