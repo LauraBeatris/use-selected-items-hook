@@ -5,13 +5,10 @@ import useSelectedItems from "../src/index";
 const initialExampleItems = [
   { id: 1, text: "What's up" },
   { id: 2, text: "Hey there" },
-  { id: 3, text: "How you doin'" },
+  { id: 3, text: "How you doing?" },
 ];
 
-interface ExampleItem {
-  id: number;
-  text: string;
-}
+type ExampleItem = typeof initialExampleItems[number]
 
 describe("useSelectedItems", () => {
   it("should return all items", () => {
