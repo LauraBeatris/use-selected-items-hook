@@ -1,21 +1,21 @@
 export type DefaultItem = Record<any, any>;
 
-export type DefaultItemIdentifierKey = any;
+export type ItemIdentifierKey = string | number;
 
 export type ItemWithSelectedState<T> = T & {
   isSelected: boolean;
   [key: string]: any;
 }
 
-export type Arguments<Item, ItemIdentifierKey extends string> = {
+export type Arguments<Item> = {
   initialItems: Array<Item>;
   itemIdentifierKey: ItemIdentifierKey;
   initialSelectedItems?: Array<Item>;
 }
 
-export type State<Item, IdentifierKey extends string> = {
+export type State<Item> = {
   items: Array<ItemWithSelectedState<Item>>;
-  itemIdentifierKey: IdentifierKey;
+  itemIdentifierKey: ItemIdentifierKey;
 }
 
 export const ActionType = {
@@ -24,7 +24,7 @@ export const ActionType = {
   TOGGLE_SINGLE_ITEM: "TOGGLE_SINGLE_ITEM",
 } as const;
 
-type ActionPayloads<Item extends DefaultItem, ItemIdentifierKey extends string> = {
+type ActionPayloads<Item extends DefaultItem> = {
   [ActionType.TOGGLE_SINGLE_ITEM]: {
     itemIdentifierValue?: Item[ItemIdentifierKey];
   };
@@ -46,8 +46,6 @@ type ActionMap<M extends Record<string, any>> = {
       }
 };
 
-export type Action<Item, ItemIdentifierKey extends string> = (
-  ActionMap<ActionPayloads<Item, ItemIdentifierKey>>[
-    keyof ActionMap<ActionPayloads<Item, ItemIdentifierKey>>
-  ]
+export type Action<Item> = (
+  ActionMap<ActionPayloads<Item>>[keyof ActionMap<ActionPayloads<Item>>]
 )

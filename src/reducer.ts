@@ -3,10 +3,7 @@ import update from "immutability-helper";
 
 import { State, Action, ActionType } from "./types";
 
-const reducer: <Item, ItemIdentifier extends string>() => Reducer<
-  State<Item, ItemIdentifier>,
-  Action<Item, ItemIdentifier>
-> = () => (state, action) => {
+const reducer: <Item>() => Reducer<State<Item>, Action<Item>> = () => (state, action) => {
   switch (action.type) {
     case ActionType.INITIALIZE_ITEMS: {
       const {

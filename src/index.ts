@@ -1,36 +1,24 @@
 import {
-  Reducer,
   useMemo,
   useEffect,
   useReducer,
   useCallback,
 } from "react";
 
+import { Arguments, ActionType, DefaultItem } from "./types";
 import reducer from "./reducer";
-import {
-  State,
-  Action,
-  Arguments,
-  ActionType,
-  DefaultItem,
-} from "./types";
 
-function useSelectedItems<Item extends DefaultItem, ItemIdentifierKey extends string>({
+function useSelectedItems<Item extends DefaultItem>({
   initialItems = [],
   itemIdentifierKey,
   initialSelectedItems = [],
-}: Arguments<Item, ItemIdentifierKey>) {
-  const [{ items }, dispatch] = useReducer<
-    Reducer<State<
-      Item, ItemIdentifierKey>,
-      Action<Item, ItemIdentifierKey>
-    >
-  >(
-    reducer<Item, ItemIdentifierKey>(),
+}: Arguments<Item>) {
+  const [{ items }, dispatch] = useReducer(
+    reducer<Item>(),
     { items: [], itemIdentifierKey },
   );
 
-  const toggleSingleItem = useCallback((itemIdentifierValue: Item[ItemIdentifierKey]) => {
+  const toggleSingleItem = useCallback((itemIdentifierValue: Item[typeof itemIdentifierKey]) => {
     dispatch({
       type: ActionType.TOGGLE_SINGLE_ITEM,
       payload: {
