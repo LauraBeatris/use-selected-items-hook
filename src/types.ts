@@ -1,43 +1,38 @@
 export type DefaultItem = Record<any, any>;
 
-export type DefaultItemIdentifierKey = any;
+export type ItemIdentifierKey<Item> = keyof Item;
 
-export interface Arguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
-  initialItems: T[];
-  itemIdentifierKey: K;
-  initialSelectedItems?: T[];
-}
-
-export type Item<T> = T & {
+export type ItemWithSelectedState<T> = T & {
   isSelected: boolean;
+  [key: string]: any;
 }
 
-export interface State<T = DefaultItem, K = DefaultItemIdentifierKey> {
-  items: Item<T>[];
-  itemIdentifierKey: K;
+export type Arguments<Item> = {
+  initialItems: Array<Item>;
+  itemIdentifierKey: ItemIdentifierKey<Item>;
+  initialSelectedItems?: Array<Item>;
 }
 
-export interface HookReturnValues<T> {
-  items: Item<T>[];
-  selectedItems: T[];
-  toggleAllItems: () => void;
-  toggleSingleItem: (itemIdentifierValue: any) => void;
+export type State<Item> = {
+  items: Array<ItemWithSelectedState<Item>>;
+  itemIdentifierKey: ItemIdentifierKey<Item>;
 }
 
-export enum ActionType {
-  INITIALIZE_ITEMS,
-  TOGGLE_ALL_ITEMS,
-  TOGGLE_SINGLE_ITEM,
-}
+export const ActionType = {
+  INITIALIZE_ITEMS: "INITIALIZE_ITEMS",
+  TOGGLE_ALL_ITEMS: "TOGGLE_ALL_ITEMS",
+  TOGGLE_SINGLE_ITEM: "TOGGLE_SINGLE_ITEM",
+} as const;
 
-interface ActionPayloads extends Record<ActionType, any> {
+type ActionPayloads<Item extends DefaultItem> = {
   [ActionType.TOGGLE_SINGLE_ITEM]: {
-    itemIdentifierValue?: any;
+    itemIdentifierValue?: Item[ItemIdentifierKey<Item>];
   };
   [ActionType.INITIALIZE_ITEMS]: {
-    initialSelectedItems: Item<any>[];
-    initialItems: Item<any>[];
+    initialSelectedItems: Array<Item>;
+    initialItems: Array<Item>;
   };
+  [ActionType.TOGGLE_ALL_ITEMS]: undefined;
 }
 
 type ActionMap<M extends Record<string, any>> = {
@@ -51,4 +46,6 @@ type ActionMap<M extends Record<string, any>> = {
       }
 };
 
-export type Action = ActionMap<ActionPayloads>[keyof ActionMap<ActionPayloads>]
+export type Action<Item> = (
+  ActionMap<ActionPayloads<Item>>[keyof ActionMap<ActionPayloads<Item>>]
+)

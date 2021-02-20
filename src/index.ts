@@ -5,38 +5,27 @@ import {
   useCallback,
 } from "react";
 
+import { Arguments, ActionType, DefaultItem } from "./types";
 import reducer from "./reducer";
-import {
-  State,
-  Arguments,
-  ActionType,
-  DefaultItem,
-  HookReturnValues,
-} from "./types";
-import { INITIAL_STATE } from "./constants";
 
-function useSelectedItems<T extends DefaultItem, K extends string>({
+function useSelectedItems<Item extends DefaultItem>({
   initialItems = [],
   itemIdentifierKey,
   initialSelectedItems = [],
-}: Arguments<T, K>) {
+}: Arguments<Item>) {
   const [{ items }, dispatch] = useReducer(
-    reducer,
-    INITIAL_STATE,
-    (state: State) => ({
-      ...state,
-      itemIdentifierKey,
-    }),
+    reducer<Item>(),
+    { items: [], itemIdentifierKey },
   );
 
-  const toggleSingleItem = useCallback((itemIdentifierValue: T) => {
+  const toggleSingleItem = useCallback((item: Item) => {
     dispatch({
       type: ActionType.TOGGLE_SINGLE_ITEM,
       payload: {
-        itemIdentifierValue,
+        itemIdentifierValue: item[itemIdentifierKey],
       },
     });
-  }, []);
+  }, [itemIdentifierKey]);
 
   const toggleAllItems = useCallback(() => {
     dispatch({
@@ -90,10 +79,10 @@ function useSelectedItems<T extends DefaultItem, K extends string>({
       .filter(item => item.isSelected)
       .map(({ isSelected: _isSelected, ...rest }) => ({
         ...rest,
-      })) as T[]
+      }))
   ), [items]);
 
-  const payload = useMemo<HookReturnValues<T>>(
+  const payload = useMemo(
     () => ({
       items,
       selectedItems,
