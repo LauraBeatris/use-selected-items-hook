@@ -30,7 +30,7 @@ const reducer: <Item, ItemIdentifier extends string>() => Reducer<
       const { itemIdentifierValue } = action.payload;
 
       const itemIndex = items.findIndex((itemFound) => (
-        itemFound[itemIdentifierKey] === itemIdentifierValue
+        itemFound[itemIdentifierKey as string] === itemIdentifierValue
       ));
 
       const item = items[itemIndex];

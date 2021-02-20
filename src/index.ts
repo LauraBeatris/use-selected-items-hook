@@ -14,7 +14,6 @@ import {
   ActionType,
   DefaultItem,
 } from "./types";
-import { INITIAL_STATE } from "./constants";
 
 function useSelectedItems<Item extends DefaultItem, ItemIdentifierKey extends string>({
   initialItems = [],
@@ -22,15 +21,13 @@ function useSelectedItems<Item extends DefaultItem, ItemIdentifierKey extends st
   initialSelectedItems = [],
 }: Arguments<Item, ItemIdentifierKey>) {
   const [{ items }, dispatch] = useReducer<
-    Reducer<State<Item, ItemIdentifierKey>, Action<Item, ItemIdentifierKey>>,
-    State<Item, ItemIdentifierKey>
+    Reducer<State<
+      Item, ItemIdentifierKey>,
+      Action<Item, ItemIdentifierKey>
+    >
   >(
     reducer<Item, ItemIdentifierKey>(),
-    INITIAL_STATE,
-    (state: State<Item, ItemIdentifierKey>) => ({
-      ...state,
-      itemIdentifierKey,
-    }),
+    { items: [], itemIdentifierKey },
   );
 
   const toggleSingleItem = useCallback((itemIdentifierValue: Item[ItemIdentifierKey]) => {
