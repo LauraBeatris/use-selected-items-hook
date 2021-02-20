@@ -11,84 +11,73 @@ const initialExampleItems = [
 
 type ExampleItem = typeof initialExampleItems[number]
 
-describe("useSelectedItems", () => {
-  it("should initialize items", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
-      itemIdentifierKey: "id",
-      initialItems: initialExampleItems,
-    }));
+it("should initialize items", () => {
+  const { result } = renderHook(() => useSelectedItems<ExampleItem>({
+    itemIdentifierKey: "id",
+    initialItems: initialExampleItems,
+  }));
 
-    expect(result.current.items.length).toBe(initialExampleItems.length);
-  });
+  expect(result.current.items.length).toBe(initialExampleItems.length);
+});
 
-  it("should initialize selected items", () => {
-    const initialSelectedItems = [initialExampleItems[0]];
+it("should initialize selected items", () => {
+  const initialSelectedItem = initialExampleItems[0];
 
-    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
-      itemIdentifierKey: "id",
-      initialSelectedItems,
-      initialItems: initialExampleItems,
-    }));
+  const { result } = renderHook(() => useSelectedItems<ExampleItem>({
+    itemIdentifierKey: "id",
+    initialSelectedItems: [initialSelectedItem],
+    initialItems: initialExampleItems,
+  }));
 
-    expect(result.current.selectedItems).toEqual(initialSelectedItems);
+  expect(result.current.selectedItems).toEqual([initialSelectedItem]);
+  expect(result.current.items).toContainEqual(
+    expect.objectContaining({
+      ...initialSelectedItem,
+      isSelected: true,
+    }),
+  );
+});
 
-    expect(result.current.items).toContainEqual(
-      expect.objectContaining({
-        ...initialSelectedItems[0],
-        isSelected: true,
-      }),
-    );
-  });
+it("should toggle a single item", () => {
+  const { result } = renderHook(() => useSelectedItems<ExampleItem>({
+    itemIdentifierKey: "id",
+    initialItems: initialExampleItems,
+  }));
 
-  it("should toggle a single item", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
-      itemIdentifierKey: "id",
-      initialItems: initialExampleItems,
-    }));
+  const item = initialExampleItems[0];
 
-    act(() => {
-      result.current.toggleSingleItem(initialExampleItems[0]);
-    });
+  act(() => result.current.toggleSingleItem(item));
 
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[0]),
-    );
+  expect(result.current.selectedItems).toEqual([item]);
 
-    act(() => {
-      result.current.toggleSingleItem(initialExampleItems[1]);
-    });
+  act(() => result.current.toggleSingleItem(item));
 
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[0]),
-    );
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[1]),
-    );
-  });
+  expect(result.current.selectedItems).toEqual([]);
+});
 
-  it("should toggle all items", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
-      itemIdentifierKey: "id",
-      initialItems: initialExampleItems,
-    }));
+it("should toggle all items", () => {
+  const { result } = renderHook(() => useSelectedItems<ExampleItem>({
+    itemIdentifierKey: "id",
+    initialItems: initialExampleItems,
+  }));
 
-    expect(result.current.selectedItems).not.toEqual(initialExampleItems);
+  act(() => result.current.toggleAllItems());
 
-    act(() => {
-      result.current.toggleAllItems();
-    });
+  expect(result.current.selectedItems).toEqual(initialExampleItems);
 
-    expect(result.current.selectedItems).toEqual(initialExampleItems);
-  });
+  act(() => result.current.toggleAllItems());
 
-  it("shouldn't render if itemIdentifierKey is wrong", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      itemIdentifierKey: "invalid-key",
-      initialItems: initialExampleItems,
-    }));
+  expect(result.current.selectedItems).not.toEqual(initialExampleItems);
+  expect(result.current.selectedItems.length).toBe(0);
+});
 
-    expect(result.error).toEqual(Error(ERROR_MESSAGES.INVALID_ITEM_IDENTIFIER));
-  });
+it("should throw error for invalid item identifier key", () => {
+  const { result } = renderHook(() => useSelectedItems<ExampleItem>({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    itemIdentifierKey: "invalid-key",
+    initialItems: initialExampleItems,
+  }));
+
+  expect(result.error).toEqual(Error(ERROR_MESSAGES.INVALID_ITEM_IDENTIFIER));
 });
