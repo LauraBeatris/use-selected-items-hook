@@ -53,14 +53,14 @@ To initialize the `items` array, the `initialItems` must be passed as an argumen
 
 ---
 
-## The two arrays returned by the hook are the following: ``items`` and ``selectedItems``.
+## Return Values
 
 - ``selectedItems``: The items that are currently selected.
 - ``listItems``: The items with the status of ``isSelected``. Refer to the [Usage](#pushpin-usage).
 
 ---
 
-## Actions to manipulate the `isSelected` status of `items`:
+## Actions
 
 - ``toggleSingleItem``
 
