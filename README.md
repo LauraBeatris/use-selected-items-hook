@@ -50,14 +50,12 @@ npm install use-selected-items-hook
 import useSelectedItems from "use-selected-items-hook";
 import classNames from "classNames";
 
-interface ExampleItem {
-   id: number;
-   text: string;
-}
 
 const initialExampleItems = [
    { id: 1, text: "What's up" }
 ];
+
+type ExampleItem = typeof initialExampleItems[number]
 
 const Example: React.FC = () => {
   const [exampleItems, setExampleItems] = useState(initialExampleItems);
@@ -105,24 +103,6 @@ As shown in the example above, you're able to pass an array of items from any ty
 order to compare the items.
 
 # :computer: API
-
-## Types Definitions
-```typescript
-export interface Arguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
-  initialItems: T[];
-  itemIdentifierKey: K;
-  initialSelectedItems?: T[];
-}
-
-export interface HookReturnValues<T> {
-  items: Item<T>[];
-  selectedItems: Item<T>[];
-  toggleAllItems: () => void;
-  toggleSingleItem: (itemIdentifierValue: any) => void;
-}
-```
-
----
 
 ## Initialization
 To initialize the `items` array, the `initialItems` must be passed as an argument. It's also possible to initialize the items already with an `isSelected` state, but to do so, it's necessary to provide the `initialSelectedItems` argument.

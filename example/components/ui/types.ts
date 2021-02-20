@@ -1,3 +1,3 @@
-export interface AspectRatioProps {
+export type AspectRatioProps = {
   ratio: number;
 }
