@@ -14,7 +14,10 @@ module.exports = {
     "import/resolver": {
       typescript: {},
       node: {
-        extensions: [".ts", ".tsx"],
+        extensions: [
+          ".ts",
+          ".tsx",
+        ],
       },
     },
   },
