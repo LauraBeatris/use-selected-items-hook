@@ -1,6 +1,7 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 
 import useSelectedItems from "../src/index";
+import { ERROR_MESSAGES } from "../src/constants";
 
 const initialExampleItems = [
   { id: 1, text: "What's up" },
@@ -12,7 +13,7 @@ type ExampleItem = typeof initialExampleItems[number]
 
 describe("useSelectedItems", () => {
   it("should initialize items", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
+    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
       itemIdentifierKey: "id",
       initialItems: initialExampleItems,
     }));
@@ -23,7 +24,7 @@ describe("useSelectedItems", () => {
   it("should initialize selected items", () => {
     const initialSelectedItems = [initialExampleItems[0]];
 
-    const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
+    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
       itemIdentifierKey: "id",
       initialSelectedItems,
       initialItems: initialExampleItems,
@@ -39,22 +40,14 @@ describe("useSelectedItems", () => {
     );
   });
 
-  it("should render with empty items", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
-      itemIdentifierKey: "id",
-    }));
-
-    expect(result.current.items).toEqual([]);
-  });
-
   it("should toggle a single item", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
+    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
       itemIdentifierKey: "id",
       initialItems: initialExampleItems,
     }));
 
     act(() => {
-      result.current.toggleSingleItem(1);
+      result.current.toggleSingleItem(initialExampleItems[0]);
     });
 
     expect(result.current.selectedItems).toContainEqual(
@@ -62,7 +55,7 @@ describe("useSelectedItems", () => {
     );
 
     act(() => {
-      result.current.toggleSingleItem(2);
+      result.current.toggleSingleItem(initialExampleItems[1]);
     });
 
     expect(result.current.selectedItems).toContainEqual(
@@ -74,7 +67,7 @@ describe("useSelectedItems", () => {
   });
 
   it("should toggle all items", () => {
-    const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
+    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
       itemIdentifierKey: "id",
       initialItems: initialExampleItems,
     }));
@@ -89,16 +82,13 @@ describe("useSelectedItems", () => {
   });
 
   it("shouldn't render if itemIdentifierKey is wrong", () => {
-    const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+    const { result } = renderHook(() => useSelectedItems<ExampleItem>({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      itemIdentifierKey: "invalid-key",
+      initialItems: initialExampleItems,
+    }));
 
-    expect(() => {
-      renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
-        itemIdentifierKey: "wrong-id",
-        initialItems: initialExampleItems,
-      }));
-    }).toThrowError();
-
-    expect(consoleSpy).toHaveBeenCalled();
-    consoleSpy.mockRestore();
+    expect(result.error).toEqual(Error(ERROR_MESSAGES.INVALID_ITEM_IDENTIFIER));
   });
 });
