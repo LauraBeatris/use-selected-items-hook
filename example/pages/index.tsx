@@ -25,7 +25,7 @@ const Main: React.FC = () => {
     selectedItems,
     toggleAllItems,
     toggleSingleItem,
-  } = useSelectedItems<Travel, string>({
+  } = useSelectedItems<Travel>({
     itemIdentifierKey: "id",
     initialItems: travelsItems,
   });
@@ -42,7 +42,7 @@ const Main: React.FC = () => {
   }, [fetchTravels]);
 
   const handleClick = (item) => () => {
-    toggleSingleItem(item.id);
+    toggleSingleItem(item);
   };
 
   const handleOpenModal = useCallback(() => {

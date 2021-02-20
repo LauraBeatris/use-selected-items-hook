@@ -18,14 +18,14 @@ function useSelectedItems<Item extends DefaultItem>({
     { items: [], itemIdentifierKey },
   );
 
-  const toggleSingleItem = useCallback((itemIdentifierValue: Item[typeof itemIdentifierKey]) => {
+  const toggleSingleItem = useCallback((item: Item) => {
     dispatch({
       type: ActionType.TOGGLE_SINGLE_ITEM,
       payload: {
-        itemIdentifierValue,
+        itemIdentifierValue: item[itemIdentifierKey],
       },
     });
-  }, []);
+  }, [itemIdentifierKey]);
 
   const toggleAllItems = useCallback(() => {
     dispatch({
