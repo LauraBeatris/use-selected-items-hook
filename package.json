@@ -18,11 +18,14 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "lint-code-style": "eslint ./src/*.ts --fix",
-    "lint-check-types": "tsc --noemit",
-    "lint": "yarn lint-code-style && yarn lint-check-types"
+    "types-check": "tsc --noemit",
+    "lint": "yarn lint-code-style && yarn types-check"
   },
   "peerDependencies": {
     "react": ">=16"
+  },
+  "jest": {
+    "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
   },
   "name": "use-selected-items-hook",
   "author": "Laura Beatris",
@@ -42,6 +45,9 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@jungsoft/eslint-config": "4.0.1",
     "@size-limit/preset-small-lib": "^4.9.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/react-hooks": "^5.0.3",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
@@ -52,6 +58,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest-dom": "^3.6.5",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.1.2",
@@ -61,6 +68,7 @@
     "lint-staged": "^10.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-test-renderer": "^17.0.1",
     "size-limit": "^4.9.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
