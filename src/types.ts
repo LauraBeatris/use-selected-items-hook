@@ -2,42 +2,37 @@ export type DefaultItem = Record<any, any>;
 
 export type DefaultItemIdentifierKey = any;
 
-export interface Arguments<T = DefaultItem, K = DefaultItemIdentifierKey> {
-  initialItems: T[];
-  itemIdentifierKey: K;
-  initialSelectedItems?: T[];
-}
-
-export type Item<T> = T & {
+export type ItemWithSelectedState<T> = T & {
   isSelected: boolean;
+  [key: string]: any;
 }
 
-export interface State<T = DefaultItem, K = DefaultItemIdentifierKey> {
-  items: Item<T>[];
-  itemIdentifierKey: K;
+export type Arguments<Item, ItemIdentifierKey extends string> = {
+  initialItems: Array<Item>;
+  itemIdentifierKey: ItemIdentifierKey;
+  initialSelectedItems?: Array<Item>;
 }
 
-export interface HookReturnValues<T> {
-  items: Item<T>[];
-  selectedItems: T[];
-  toggleAllItems: () => void;
-  toggleSingleItem: (itemIdentifierValue: any) => void;
+export type State<Item, IdentifierKey extends string> = {
+  items: Array<ItemWithSelectedState<Item>>;
+  itemIdentifierKey: IdentifierKey;
 }
 
-export enum ActionType {
-  INITIALIZE_ITEMS,
-  TOGGLE_ALL_ITEMS,
-  TOGGLE_SINGLE_ITEM,
-}
+export const ActionType = {
+  INITIALIZE_ITEMS: "INITIALIZE_ITEMS",
+  TOGGLE_ALL_ITEMS: "TOGGLE_ALL_ITEMS",
+  TOGGLE_SINGLE_ITEM: "TOGGLE_SINGLE_ITEM",
+} as const;
 
-interface ActionPayloads extends Record<ActionType, any> {
+type ActionPayloads<Item extends DefaultItem, ItemIdentifierKey extends string> = {
   [ActionType.TOGGLE_SINGLE_ITEM]: {
-    itemIdentifierValue?: any;
+    itemIdentifierValue?: Item[ItemIdentifierKey];
   };
   [ActionType.INITIALIZE_ITEMS]: {
-    initialSelectedItems: Item<any>[];
-    initialItems: Item<any>[];
+    initialSelectedItems: Array<Item>;
+    initialItems: Array<Item>;
   };
+  [ActionType.TOGGLE_ALL_ITEMS]: undefined;
 }
 
 type ActionMap<M extends Record<string, any>> = {
@@ -51,4 +46,8 @@ type ActionMap<M extends Record<string, any>> = {
       }
 };
 
-export type Action = ActionMap<ActionPayloads>[keyof ActionMap<ActionPayloads>]
+export type Action<Item, ItemIdentifierKey extends string> = (
+  ActionMap<ActionPayloads<Item, ItemIdentifierKey>>[
+    keyof ActionMap<ActionPayloads<Item, ItemIdentifierKey>>
+  ]
+)
