@@ -44,63 +44,7 @@ yarn add use-selected-items-hook
 npm install use-selected-items-hook
 ```
 
-# :pushpin: Usage
-
-```tsx
-import useSelectedItems from "use-selected-items-hook";
-import classNames from "classNames";
-
-
-const initialExampleItems = [
-   { id: 1, text: "What's up" }
-];
-
-type ExampleItem = typeof initialExampleItems[number]
-
-const Example: React.FC = () => {
-  const [exampleItems, setExampleItems] = useState(initialExampleItems);
-
-  const {
-    items,
-    selectedItems,
-    toggleAllItems,
-    toggleSingleItem,
-  } = useSelectedItems<ExampleItem, ExampleItem["text"]>({
-    itemIdentifierKey: "id",
-    initialItems: exampleItems,
-  });
-
-   const handleClick = (itemId) => () => {
-      toggleSingleItem(itemId);
-   };
-
-   return (
-      <div>
-         {
-            items.map(item => {
-               // Applying classes according to the isSelected status 
-               const itemClasses = classNames("relative cursor-pointer rounded-lg border-4 border-white border-solid", {
-                  "border-indigo-500": item.isSelected,
-               });
-
-                return (
-                  <button
-                    key={item.id}
-                    className={itemClasses}
-                    onClick={handleClick(item.id)}
-                  >
-                     {item.text}
-                  </button>
-                );
-            })
-         }
-      </div>
-   )
-};
-```
-
-As shown in the example above, you're able to pass an array of items from any type of source, as long it has a unique identifier in
-order to compare the items.
+# :pushpin: [Usage](./example/pages/index.tsx) 
 
 # :computer: API
 
