@@ -11,29 +11,31 @@ const initialExampleItems = [
 type ExampleItem = typeof initialExampleItems[number]
 
 describe("useSelectedItems", () => {
-  it("should return all items", () => {
+  it("should initialize items", () => {
     const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
       itemIdentifierKey: "id",
       initialItems: initialExampleItems,
     }));
 
-    expect(result.current.items).toBeTruthy();
     expect(result.current.items.length).toBe(initialExampleItems.length);
   });
 
-  it("should render with initialSelectedItems", () => {
+  it("should initialize selected items", () => {
+    const initialSelectedItems = [initialExampleItems[0]];
+
     const { result } = renderHook(() => useSelectedItems<ExampleItem, ExampleItem["text"]>({
       itemIdentifierKey: "id",
-      initialSelectedItems: [initialExampleItems[0]],
+      initialSelectedItems,
       initialItems: initialExampleItems,
     }));
 
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[0]),
-    );
+    expect(result.current.selectedItems).toEqual(initialSelectedItems);
 
     expect(result.current.items).toContainEqual(
-      expect.objectContaining({ ...initialExampleItems[0], isSelected: true }),
+      expect.objectContaining({
+        ...initialSelectedItems[0],
+        isSelected: true,
+      }),
     );
   });
 
@@ -77,33 +79,13 @@ describe("useSelectedItems", () => {
       initialItems: initialExampleItems,
     }));
 
-    expect(result.current.selectedItems).not.toContainEqual(
-      expect.objectContaining(initialExampleItems[0]),
-    );
-
-    expect(result.current.selectedItems).not.toContainEqual(
-      expect.objectContaining(initialExampleItems[1]),
-    );
-
-    expect(result.current.selectedItems).not.toContainEqual(
-      expect.objectContaining(initialExampleItems[2]),
-    );
+    expect(result.current.selectedItems).not.toEqual(initialExampleItems);
 
     act(() => {
       result.current.toggleAllItems();
     });
 
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[0]),
-    );
-
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[1]),
-    );
-
-    expect(result.current.selectedItems).toContainEqual(
-      expect.objectContaining(initialExampleItems[2]),
-    );
+    expect(result.current.selectedItems).toEqual(initialExampleItems);
   });
 
   it("shouldn't render if itemIdentifierKey is wrong", () => {
