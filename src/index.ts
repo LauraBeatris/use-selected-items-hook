@@ -80,7 +80,7 @@ function useSelectedItems<Item extends DefaultItem>({
       .map(({ isSelected: _isSelected, ...rest }) => ({
         ...rest,
       }))
-  ), [items]);
+  ), [items]) as Array<Item>;
 
   const payload = useMemo(
     () => ({
