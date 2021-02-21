@@ -2,9 +2,9 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 
-import useSelectedItems from "../../src/index";
-import AsyncInitialization from "../components/AsyncInitialization";
-import { INITIAL_TEST_ITEMS, TestItem } from "../constants";
+import useSelectedItems from "../../../src/index";
+import AsyncInitialization from "../../components/AsyncInitialization";
+import { INITIAL_TEST_ITEMS, TestItem } from "../../constants";
 
 describe("Hook Initialization", () => {
   it("should handle asynchronous items initialization", async () => {

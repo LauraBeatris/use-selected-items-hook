@@ -1,8 +1,8 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 
-import useSelectedItems from "../../src/index";
-import { ERROR_MESSAGES } from "../../src/constants";
-import { INITIAL_TEST_ITEMS, TestItem } from "../constants";
+import useSelectedItems from "../../../src/index";
+import { ERROR_MESSAGES } from "../../../src/constants";
+import { INITIAL_TEST_ITEMS, TestItem } from "../../constants";
 
 describe("Hook Actions", () => {
   it("should toggle a single item", () => {
