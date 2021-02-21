@@ -35,7 +35,7 @@ describe("Hook Actions", () => {
     act(() => result.current.toggleAllItems());
 
     expect(result.current.selectedItems).not.toEqual(INITIAL_TEST_ITEMS);
-    expect(result.current.selectedItems.length).toBe(0);
+    expect(result.current.selectedItems).toHaveLength(0);
   });
 
   it("should throw error for invalid item identifier key", () => {
