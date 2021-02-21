@@ -4,7 +4,7 @@ module.exports = {
     "@jungsoft/eslint-config/react",
     "@jungsoft/eslint-config/typescript",
   ],
-  plugins: ["jest-dom"],
+  plugins: ["testing-library", "jest-dom"],
   rules: {
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
