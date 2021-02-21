@@ -7,6 +7,7 @@ import {
 
 import { Arguments, ActionType, DefaultItem } from "./types";
 import reducer from "./reducer";
+import { ERROR_MESSAGES } from "./constants";
 
 function useSelectedItems<Item extends DefaultItem>({
   initialItems = [],
@@ -65,9 +66,7 @@ function useSelectedItems<Item extends DefaultItem>({
     const hasInitialItems = initialItems.length > 0;
 
     if (hasInitialItems && !hasValidIdentifier) {
-      throw new Error(
-        "Please, make sure to provide a valid identifier key to all items",
-      );
+      throw new Error(ERROR_MESSAGES.INVALID_ITEM_IDENTIFIER);
     }
   }, [
     initialItems,
