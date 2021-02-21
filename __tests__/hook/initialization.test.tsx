@@ -1,5 +1,5 @@
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 
 import useSelectedItems from "../../src/index";
@@ -8,10 +8,10 @@ import { INITIAL_TEST_ITEMS, TestItem } from "../constants";
 
 describe("Hook Initialization", () => {
   it("should handle asynchronous items initialization", async () => {
-    const { getByText } = render(<AsyncInitialization />);
+    render(<AsyncInitialization />);
 
     await waitFor(() => (
-      expect(getByText(INITIAL_TEST_ITEMS[0].text)).toBeInTheDocument()
+      expect(screen.getByText(INITIAL_TEST_ITEMS[0].text)).toBeInTheDocument()
     ), { interval: GET_TEST_ITEMS_TIMEOUT });
   });
 
