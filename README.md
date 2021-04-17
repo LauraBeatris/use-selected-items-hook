@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-   <a href="https://use-selected-items-hook-6vsdik4n4.vercel.app/">Check out the example</a>
+   <a href="https://use-selected-items-hook.vercel.app/">Check out the example</a>
 </p>
 
 ---
